@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: Zone-Protect/maven-auto-release@v1
+      - uses: Zone-Protect/Maven-Auto-Release@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
