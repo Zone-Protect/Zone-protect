@@ -18,27 +18,19 @@ jobs:
     - name: Get version from POM
       id: version
       uses: CptMokoena/maven-get-version-action@1.0.3
-
-    - name: Create release
-      id: release
-      uses: actions/create-release@v1
-      with: 
-        tag_name: ${{ steps.version.outputs.version }}
-        release_name: Zones V${{ steps.version.outputs.version }}
-        body: 'Changes coming soon'
-        draft: true
-        prerelease: true
     - name: Build
       run: mvn package
     - name: Upload to artifact
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        upload_url: ${{steps.release.outputs.upload_url}}
-        asset_path: target/zones-${{ steps.version.outputs.version }}
-        asset_name: 'Zones.jar'
-        asset_content_type: application/java-archive
+        files: target/zones-${{ steps.version.outputs.version }}.jar
+        tag_name: ${{ steps.version.outputs.version }}
+        release_name: Zones V${{ steps.version.outputs.version }}
+        body: 'Changes coming soon'
+        token: ${{secrets.GITHUB_TOKEN}}
+        draft: true
+        prerelease: true
+        fail_on_unmatched_files: true
         
     
       
