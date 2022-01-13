@@ -29,7 +29,7 @@ jobs:
         tag_name: ${{ steps.version.outputs.version }}
         body: 'This is a automatic build. Please visit our Ore page at "to be completed"'
         token: ${{secrets.GITHUB_TOKEN}}
-        draft: true
+        draft: false
         prerelease: true
         fail_on_unmatched_files: true
         
