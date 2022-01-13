@@ -13,6 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: Zone-Protect/Maven-Auto-Release@v1
+      - name: Maven Release
+        uses: eric2788/maven-jar-publish@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: true
+        
+          
