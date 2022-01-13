@@ -17,16 +17,14 @@ jobs:
         cache: maven
     - name: Get version from POM
       id: version
-      uses: mavrosxristoforos/get-xml-info@1.0
-      with:
-        xml-file: 'pom.xml'
-        xpath: '//version'
+      uses: CptMokoena/maven-get-version-action@master
+
     - name: Create release
       id: release
       uses: actions/create-release@v1
       with: 
-        tag_name: ${{ steps.version.outputs.info }}
-        release_name: Zones V${{ steps.version.outputs.info }}
+        tag_name: ${{ steps.version.outputs.version }}
+        release_name: Zones V${{ steps.version.outputs.version }}
         body: 'Changes coming soon'
         draft: true
         prerelease: true
@@ -36,7 +34,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{steps.release.outputs.upload_url}}
-        asset_path: 'target/zones-${{ steps.version.outputs.info }}'
+        asset_path: target/zones-${{ steps.version.outputs.version }}
         asset_name: 'Zones.jar'
         asset_content_type: application/java-archive
         
