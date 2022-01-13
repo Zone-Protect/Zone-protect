@@ -2,6 +2,8 @@ name: On Release
 
 on:
   push:
+    branches:
+    - release
   workflow_dispatch:
   
 jobs:
@@ -9,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 17
+    - name: Set up JDK 16
       uses: actions/setup-java@v2
       with:
-        java-version: '17'
+        java-version: '16'
         distribution: 'adopt'
         cache: maven
     - name: Get version from POM
@@ -25,7 +27,7 @@ jobs:
       with:
         files: target/zones-${{ steps.pom-version.outputs.version }}.jar
         tag_name: ${{ steps.version.outputs.version }}
-        body: 'Changes coming soon'
+        body: 'This is a automatic build. Please visit our Ore page at "to be completed"'
         token: ${{secrets.GITHUB_TOKEN}}
         draft: true
         prerelease: true
