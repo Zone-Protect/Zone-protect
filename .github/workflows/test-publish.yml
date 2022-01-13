@@ -3,7 +3,7 @@ name: On Release
 on:
   push:
     branches:
-    - beta-release
+    - release
   workflow_dispatch:
   
 jobs:
