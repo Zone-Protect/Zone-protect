@@ -16,16 +16,15 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Get version from POM
-      id: version
+      id: pom-version
       uses: CptMokoena/maven-get-version-action@1.0.3
     - name: Build
       run: mvn package
     - name: Upload to artifact
       uses: softprops/action-gh-release@v1
       with:
-        files: target/zones-${{ steps.version.outputs.version }}.jar
+        files: target/zones-${{ steps.pom-version.outputs.version }}.jar
         tag_name: ${{ steps.version.outputs.version }}
-        release_name: Zones V${{ steps.version.outputs.version }}
         body: 'Changes coming soon'
         token: ${{secrets.GITHUB_TOKEN}}
         draft: true
