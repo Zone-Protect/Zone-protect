@@ -20,7 +20,7 @@ jobs:
       uses: mavrosxristoforos/get-xml-info@1.0
       with:
         xml-file: 'pom.xml'
-        xpath: 'project/version'
+        xpath: '/project/version'
     - name: Create release
       id: release
       uses: actions/create-release@v1
