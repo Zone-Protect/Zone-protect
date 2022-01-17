@@ -26,7 +26,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: target/zones-${{ steps.pom-version.outputs.version }}.jar
-        tag_name: ${{ steps.pom-version.outputs.version }}-snapshot
+        tag_name: ${{ steps.pom-version.outputs.version }}-snapshot-{{github.run_id}}
         body: 'This is a automatic build for testing"'
         token: ${{secrets.GITHUB_TOKEN}}
         draft: false
