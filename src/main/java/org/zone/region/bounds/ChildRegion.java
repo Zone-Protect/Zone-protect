@@ -1,6 +1,8 @@
 package org.zone.region.bounds;
 
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.world.World;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.math.vector.Vector3d;
@@ -45,6 +47,14 @@ public class ChildRegion implements Region {
     @Override
     public boolean contains(@NotNull Vector3d location, boolean ignoreY) {
         return this.bounds.stream().anyMatch(bound -> bound.contains(location, ignoreY));
+    }
+
+    @Override
+    public Collection<? extends Entity> getEntities(World<?, ?> world) {
+        return this.bounds
+                .stream()
+                .flatMap(region -> region.getEntities(world).stream())
+                .collect(Collectors.toUnmodifiableSet());
     }
 
     @Override
@@ -93,7 +103,9 @@ public class ChildRegion implements Region {
         return new ChildRegion(regions);
     }
 
-    public static void save(@NotNull ConfigurationNode node, @SuppressWarnings("TypeMayBeWeakened") @NotNull ChildRegion region) throws
+    public static void save(
+            @NotNull ConfigurationNode node,
+            @SuppressWarnings("TypeMayBeWeakened") @NotNull ChildRegion region) throws
             SerializationException {
         for (Region child : region.getChildren()) {
             child.save(node.node("" + child.hashCode()));

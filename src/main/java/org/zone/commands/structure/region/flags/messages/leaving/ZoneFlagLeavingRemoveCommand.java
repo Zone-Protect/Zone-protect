@@ -22,16 +22,16 @@ import java.util.Optional;
 public class ZoneFlagLeavingRemoveCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zone_value",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_LEAVING_REMOVE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_LEAVING_REMOVE));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("leaving"),
-                             new ExactArgument("remove"));
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("leaving"),
+                new ExactArgument("remove"));
     }
 
     @Override

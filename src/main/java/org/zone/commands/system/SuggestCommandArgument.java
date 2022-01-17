@@ -8,7 +8,7 @@ import org.zone.commands.system.context.CommandContext;
 import java.util.Collection;
 
 public interface SuggestCommandArgument<T> {
-    @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext commandContext,
-                                                   @NotNull CommandArgumentContext<T> argument);
+    @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext commandContext, @NotNull CommandArgumentContext<T> argument);
 
 }

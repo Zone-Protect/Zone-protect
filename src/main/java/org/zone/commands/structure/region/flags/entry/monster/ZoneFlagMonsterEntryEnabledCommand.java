@@ -24,21 +24,21 @@ import java.util.Optional;
 public class ZoneFlagMonsterEntryEnabledCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zoneId",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ENTRY_MONSTER_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ENTRY_MONSTER_ENABLE));
     public static final BooleanArgument ENABLED = new BooleanArgument("enabledValue",
-                                                                      "enable",
-                                                                      "disable");
+            "enable",
+            "disable");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("entry"),
-                             new ExactArgument("monster"),
-                             new ExactArgument("set"),
-                             ENABLED);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("entry"),
+                new ExactArgument("monster"),
+                new ExactArgument("set"),
+                ENABLED);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class ZoneFlagMonsterEntryEnabledCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         boolean enable = commandContext.getArgument(this, ENABLED);
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         PreventMonsterFlag preventMonsterFlag = zone

@@ -23,7 +23,7 @@ public class GenericParserTest {
 
         Assertions.assertNotNull(component);
         Assertions.assertEquals(message,
-                                PlainTextComponentSerializer.plainText().serialize(component));
+                PlainTextComponentSerializer.plainText().serialize(component));
         Assertions.assertNull(component.color());
         Assertions.assertFalse(component.hasStyling());
     }
@@ -36,7 +36,7 @@ public class GenericParserTest {
 
         Assertions.assertNotNull(component);
         Assertions.assertEquals("test one",
-                                PlainTextComponentSerializer.plainText().serialize(component));
+                PlainTextComponentSerializer.plainText().serialize(component));
         Assertions.assertNotNull(component.color());
         Assertions.assertEquals(NamedTextColor.RED, component.color());
         Assertions.assertTrue(component.hasStyling());

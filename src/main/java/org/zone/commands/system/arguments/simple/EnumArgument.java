@@ -44,8 +44,8 @@ public class EnumArgument<T extends Enum<T>> implements GUICommandArgument<T> {
     }
 
     @Override
-    public CommandArgumentResult<T> parse(@NotNull CommandContext context,
-                                          @NotNull CommandArgumentContext<T> argument) throws
+    public CommandArgumentResult<T> parse(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<T> argument) throws
             IOException {
         String arg = argument.getFocusArgument();
         Optional<T> opValue = this.set
@@ -59,8 +59,8 @@ public class EnumArgument<T extends Enum<T>> implements GUICommandArgument<T> {
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext commandContext,
-                                                          @NotNull CommandArgumentContext<T> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext commandContext, @NotNull CommandArgumentContext<T> argument) {
         String arg = argument.getFocusArgument();
         return this.set
                 .parallelStream()

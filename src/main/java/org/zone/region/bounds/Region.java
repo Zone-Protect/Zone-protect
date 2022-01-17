@@ -1,6 +1,7 @@
 package org.zone.region.bounds;
 
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.entity.Entity;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -28,6 +29,8 @@ public interface Region {
      * @return true if the region contains that block position
      */
     boolean contains(@NotNull Vector3d location, boolean ignoreY);
+
+    Collection<? extends Entity> getEntities(World<?, ?> world);
 
     /**
      * Gets the location within the region that is nearest to the provided block position
@@ -95,8 +98,8 @@ public interface Region {
      *
      * @return if true, the position is contained
      */
-    default boolean contains(@NotNull Location<? extends World<?, ?>, ?> location,
-                             boolean ignoreY) {
+    default boolean contains(
+            @NotNull Location<? extends World<?, ?>, ?> location, boolean ignoreY) {
         return this.contains(location.position(), ignoreY);
     }
 

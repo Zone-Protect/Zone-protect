@@ -9,11 +9,14 @@ import org.zone.region.flag.FlagType;
 
 public abstract class FlagChangeEvent implements ZoneEvent {
 
+    private final @NotNull Cause cause;
+    private final @NotNull Zone zone;
+
     public static class UpdateFlag extends FlagChangeEvent implements Cancellable {
 
-        private boolean isCancelled;
         private final @NotNull Flag previous;
         private final @NotNull Flag updated;
+        private boolean isCancelled;
 
         public UpdateFlag(Zone zone, @NotNull Flag previous, @NotNull Flag updated, Cause cause) {
             super(zone, cause);
@@ -100,9 +103,6 @@ public abstract class FlagChangeEvent implements ZoneEvent {
             this.isCancelled = cancel;
         }
     }
-
-    private final @NotNull Cause cause;
-    private final @NotNull Zone zone;
 
     public FlagChangeEvent(@NotNull Zone zone, @NotNull Cause cause) {
         this.cause = cause;

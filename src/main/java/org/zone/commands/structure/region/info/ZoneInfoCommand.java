@@ -28,8 +28,8 @@ import java.util.stream.Collectors;
 public class ZoneInfoCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_REGION_BASIC_INFO));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_REGION_BASIC_INFO));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
@@ -78,8 +78,8 @@ public class ZoneInfoCommand implements ArgumentCommand {
                 .streamAll()
                 .filter(profile -> profile.uuid().equals(uuid))
                 .forEach(profile -> commandContext.sendMessage(Messages.getEntry(profile
-                                                                                         .name()
-                                                                                         .orElse("Unknown")))));
+                        .name()
+                        .orElse("Unknown")))));
         return CommandResult.success();
     }
 }

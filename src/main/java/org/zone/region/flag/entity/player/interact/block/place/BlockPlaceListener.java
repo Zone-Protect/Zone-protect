@@ -48,7 +48,7 @@ public class BlockPlaceListener {
                 })
                 .filter(map -> map.getValue() != null)
                 .collect(Collectors.toMap(AbstractMap.SimpleEntry::getKey,
-                                          AbstractMap.SimpleEntry::getValue));
+                        AbstractMap.SimpleEntry::getValue));
 
         inZone
                 .entrySet()

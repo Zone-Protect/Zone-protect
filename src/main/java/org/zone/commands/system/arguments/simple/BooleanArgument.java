@@ -59,9 +59,8 @@ public class BooleanArgument implements GUICommandArgument<Boolean> {
     }
 
     @Override
-    public CommandArgumentResult<Boolean> parse(CommandContext context,
-                                                CommandArgumentContext<Boolean> argument) throws
-            IOException {
+    public CommandArgumentResult<Boolean> parse(
+            CommandContext context, CommandArgumentContext<Boolean> argument) throws IOException {
         String arg = context.getCommand()[argument.getFirstArgument()];
         if (arg.equals(this.asTrue)) {
             return CommandArgumentResult.from(argument, true);
@@ -70,17 +69,17 @@ public class BooleanArgument implements GUICommandArgument<Boolean> {
             return CommandArgumentResult.from(argument, false);
         }
         throw new IOException("'" +
-                                      arg +
-                                      "' is not either '" +
-                                      this.asTrue +
-                                      "' or '" +
-                                      this.asFalse +
-                                      "'");
+                arg +
+                "' is not either '" +
+                this.asTrue +
+                "' or '" +
+                this.asFalse +
+                "'");
     }
 
     @Override
-    public @NotNull Set<CommandCompletion> suggest(CommandContext commandContext,
-                                                   CommandArgumentContext<Boolean> argument) {
+    public @NotNull Set<CommandCompletion> suggest(
+            CommandContext commandContext, CommandArgumentContext<Boolean> argument) {
         String peek = commandContext.getCommand()[argument.getFirstArgument()];
         Set<CommandCompletion> list = new HashSet<>();
         if (this.asTrue.startsWith(peek.toLowerCase())) {

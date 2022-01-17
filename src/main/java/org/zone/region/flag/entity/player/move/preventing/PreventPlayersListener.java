@@ -67,12 +67,12 @@ public class PreventPlayersListener {
     }
 
     @Listener
-    public void onPlayerLoginEvent(ServerSideConnectionEvent.Join joinevent) {
-        ServerPlayer serverPlayer = joinevent.player();
+    public void onPlayerLoginEvent(ServerSideConnectionEvent.Join joinEvent) {
+        ServerPlayer serverPlayer = joinEvent.player();
         Optional<Zone> opZone = ZonePlugin
                 .getZonesPlugin()
                 .getZoneManager()
-                .getPriorityZone(joinevent.player().world(), joinevent.player().position());
+                .getPriorityZone(joinEvent.player().world(), joinEvent.player().position());
 
         if (opZone.isEmpty()) {
             return;
@@ -85,7 +85,7 @@ public class PreventPlayersListener {
         if (!flag.get().hasPermission(opZone.get(), serverPlayer.uniqueId())) {
             return;
         }
-        Optional<Vector3i> opPos = this.tpPos(opZone.get(), serverPlayer);
+        Optional<Vector3i> opPos = this.getOutsidePosition(opZone.get(), serverPlayer);
         if (opPos.isPresent()) {
             serverPlayer.setPosition(opPos.get().toDouble());
             return;
@@ -93,7 +93,8 @@ public class PreventPlayersListener {
         serverPlayer.setPosition(serverPlayer.world().properties().spawnPosition().toDouble());
     }
 
-    private Optional<Vector3i> tpPos(@NotNull Zone zoneOne, @NotNull Locatable player) {
+    public static Optional<Vector3i> getOutsidePosition(
+            @NotNull Zone zoneOne, @NotNull Locatable player) {
         return zoneOne.getRegion().getTrueChildren().stream().filter(boundedRegion -> {
             Vector3i position = boundedRegion.getMin().add(-1, 0, -1);
             position = player.world().highestPositionAt(position);
@@ -149,7 +150,7 @@ public class PreventPlayersListener {
             return;
         }
 
-        Optional<Vector3i> opTpPos = this.tpPos(zone, player);
+        Optional<Vector3i> opTpPos = this.getOutsidePosition(zone, player);
 
         if (opTpPos.isPresent()) {
             event.setDestinationPosition(opTpPos.get().toDouble());

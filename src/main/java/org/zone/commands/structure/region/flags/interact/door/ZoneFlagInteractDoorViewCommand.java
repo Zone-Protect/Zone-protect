@@ -27,17 +27,17 @@ import java.util.Optional;
 public class ZoneFlagInteractDoorViewCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_VIEW));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("door"),
-                             new OptionalArgument<>(new ExactArgument("view"), (String) null));
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("interact"),
+                new ExactArgument("door"),
+                new OptionalArgument<>(new ExactArgument("view"), (String) null));
     }
 
     @Override

@@ -21,24 +21,25 @@ public class SimpleGroup implements Group {
     private final Collection<GroupKey> keys = new HashSet<>();
     private @Nullable Group parent;
 
-    public SimpleGroup(@NotNull PluginContainer plugin,
-                       @NotNull String key,
-                       @NotNull Group parent) {
+    public SimpleGroup(
+            @NotNull PluginContainer plugin, @NotNull String key, @NotNull Group parent) {
         this(plugin, key, key, parent);
     }
 
-    public SimpleGroup(@NotNull PluginContainer plugin,
-                       @NotNull String key,
-                       @NotNull String name,
-                       @NotNull Group parent) {
+    public SimpleGroup(
+            @NotNull PluginContainer plugin,
+            @NotNull String key,
+            @NotNull String name,
+            @NotNull Group parent) {
         this(plugin, key, name, parent, true);
     }
 
-    SimpleGroup(@NotNull PluginContainer plugin,
-                @NotNull String key,
-                @NotNull String name,
-                @Nullable Group parent,
-                boolean canRemove) {
+    SimpleGroup(
+            @NotNull PluginContainer plugin,
+            @NotNull String key,
+            @NotNull String name,
+            @Nullable Group parent,
+            boolean canRemove) {
         this.key = key;
         this.plugin = plugin;
         this.name = name;
@@ -82,15 +83,15 @@ public class SimpleGroup implements Group {
     }
 
     @Override
+    public int hashCode() {
+        return this.getId().hashCode();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Group group)) {
             return false;
         }
         return group.getId().equals(this.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
     }
 }

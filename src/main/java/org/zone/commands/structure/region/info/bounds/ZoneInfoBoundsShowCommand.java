@@ -3,11 +3,12 @@ package org.zone.commands.structure.region.info.bounds;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.block.BlockTypes;
+import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.effect.Viewer;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.tag.BlockTypeTags;
 import org.spongepowered.api.world.Locatable;
 import org.zone.ZonePlugin;
 import org.zone.commands.system.ArgumentCommand;
@@ -21,10 +22,9 @@ import org.zone.permissions.ZonePermissions;
 import org.zone.region.Zone;
 import org.zone.utils.Messages;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Used to see the bounds of a zone
@@ -32,16 +32,16 @@ import java.util.concurrent.TimeUnit;
 public class ZoneInfoBoundsShowCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_REGION_BASIC_INFO));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_REGION_BASIC_INFO));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("info"),
-                             ZONE,
-                             new ExactArgument("bounds"),
-                             new ExactArgument("show"));
+                new ExactArgument("info"),
+                ZONE,
+                new ExactArgument("bounds"),
+                new ExactArgument("show"));
     }
 
     @Override
@@ -61,30 +61,53 @@ public class ZoneInfoBoundsShowCommand implements ArgumentCommand {
             return CommandResult.error(Messages.getPlayerOnlyMessage());
         }
 
-        Zone zone = context.getArgument(this, ZONE);
-        zone.getRegion().getTrueChildren().forEach(region -> {
-            int y = locatable.blockPosition().y() - 1;
-            PlayerListener.runOnOutside(region,
+        Zone specifiedZone = context.getArgument(this, ZONE);
+
+        Collection<Zone> zones = ZonePlugin
+                .getZonesPlugin()
+                .getZoneManager()
+                .getZones()
+                .parallelStream()
+                .filter(zone1 -> zone1.getParent().isPresent())
+                .filter(zone -> zone.getParent().get().equals(specifiedZone))
+                .collect(Collectors.toSet());
+        zones.add(specifiedZone);
+
+        Set<BlockType> usedColours = new HashSet<>();
+        Collection<BlockType> woolColours = BlockTypeTags.WOOL.get().values();
+
+        zones.forEach(zone -> {
+            Iterator<BlockType> iterator = woolColours.iterator();
+            BlockType colour = iterator.next();
+            if (usedColours.size() == woolColours.size()) {
+                usedColours.clear();
+            }
+            while (usedColours.contains(colour)) {
+                colour = iterator.next();
+            }
+
+            usedColours.add(colour);
+
+            BlockType finalColour = colour;
+            zone.getRegion().getTrueChildren().forEach(region -> {
+                int y = locatable.blockPosition().y() - 1;
+                PlayerListener.runOnOutside(region,
+                        y,
+                        vector3i -> viewer.sendBlockChange(vector3i, finalColour.defaultState()),
+                        zone.getParentId().isPresent());
+                Sponge
+                        .server()
+                        .scheduler()
+                        .submit(Task
+                                .builder()
+                                .plugin(ZonePlugin.getZonesPlugin().getPluginContainer())
+                                .delay(10, TimeUnit.SECONDS)
+                                .execute(() -> PlayerListener.runOnOutside(region,
                                         y,
-                                        vector3i -> viewer.sendBlockChange(vector3i,
-                                                                           BlockTypes.ORANGE_WOOL
-                                                                                   .get()
-                                                                                   .defaultState()),
-                                        zone.getParentId().isPresent());
-            Sponge
-                    .server()
-                    .scheduler()
-                    .submit(Task
-                                    .builder()
-                                    .plugin(ZonePlugin.getZonesPlugin().getPluginContainer())
-                                    .delay(10, TimeUnit.SECONDS)
-                                    .execute(() -> PlayerListener.runOnOutside(region,
-                                                                               y,
-                                                                               viewer::resetBlockChange,
-                                                                               zone
-                                                                                       .getParentId()
-                                                                                       .isPresent()))
-                                    .build());
+                                        viewer::resetBlockChange,
+                                        zone.getParentId().isPresent()))
+                                .build());
+            });
         });
         return CommandResult.success();
     }

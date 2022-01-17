@@ -4,7 +4,6 @@ import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.command.CommandResult;
-import org.zone.Identifiable;
 import org.zone.commands.system.ArgumentCommand;
 import org.zone.commands.system.CommandArgument;
 import org.zone.commands.system.arguments.operation.ExactArgument;
@@ -15,7 +14,6 @@ import org.zone.permissions.ZonePermission;
 import org.zone.permissions.ZonePermissions;
 import org.zone.region.Zone;
 import org.zone.region.flag.FlagTypes;
-import org.zone.region.flag.entity.player.damage.fall.PlayerFallDamageFlag;
 import org.zone.region.group.key.GroupKeys;
 import org.zone.utils.Messages;
 
@@ -26,19 +24,19 @@ import java.util.Optional;
 public class ZoneFlagPlayerFallDamageView implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zoneId",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_VIEW));
     public static final OptionalArgument<String> VIEW = new OptionalArgument<>(new ExactArgument(
             "view"), (String) null);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("damage"),
-                             new ExactArgument("fall"),
-                             VIEW);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("damage"),
+                new ExactArgument("fall"),
+                VIEW);
     }
 
     @Override
@@ -52,13 +50,13 @@ public class ZoneFlagPlayerFallDamageView implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         commandContext
                 .getCause()
                 .sendMessage(Identity.nil(),
-                             Messages.getEnabledInfo(zone.containsFlag(FlagTypes.PLAYER_FALL_DAMAGE_FLAG_TYPE)));
+                        Messages.getEnabledInfo(zone.containsFlag(FlagTypes.PLAYER_FALL_DAMAGE_FLAG_TYPE)));
         zone
                 .getMembers()
                 .getGroup(GroupKeys.PLAYER_FALL_DAMAGE)

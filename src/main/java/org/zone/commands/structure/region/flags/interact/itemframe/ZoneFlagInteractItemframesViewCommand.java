@@ -27,19 +27,19 @@ import java.util.Optional;
 public class ZoneFlagInteractItemframesViewCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zoneId",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_VIEW));
     public static final OptionalArgument<String> VIEW = new OptionalArgument<>(new ExactArgument(
             "view"), (String) null);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("itemframes"),
-                             VIEW);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("interact"),
+                new ExactArgument("itemframes"),
+                VIEW);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class ZoneFlagInteractItemframesViewCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
 
         commandContext.sendMessage(Messages.getEnabledInfo(zone.containsFlag(FlagTypes.ITEM_FRAME_INTERACT)));

@@ -25,8 +25,8 @@ public class ZoneFlagGreetingsSetMessageCommand implements ArgumentCommand {
     public static final ExactArgument REGION = new ExactArgument("region");
     public static final ExactArgument FLAGS = new ExactArgument("flag");
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_GREETINGS_SET));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_GREETINGS_SET));
     public static final ExactArgument GREETINGS = new ExactArgument("greetings");
     public static final ExactArgument MESSAGE = new ExactArgument("message");
     public static final ExactArgument SET = new ExactArgument("set");

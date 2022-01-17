@@ -2,7 +2,6 @@ package org.zone.commands.structure.region.flags.entry.monster;
 
 import net.kyori.adventure.identity.Identity;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.command.CommandResult;
 import org.zone.commands.system.ArgumentCommand;
@@ -24,19 +23,19 @@ import java.util.Optional;
 public class ZoneFlagMonsterEntryViewCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zoneId",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ENTRY_MONSTER_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ENTRY_MONSTER_VIEW));
     public static final OptionalArgument<String> VIEW = new OptionalArgument<>(new ExactArgument(
             "view"), (String) null);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("entry"),
-                             new ExactArgument("monster"),
-                             VIEW);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("entry"),
+                new ExactArgument("monster"),
+                VIEW);
     }
 
     @Override
@@ -50,12 +49,13 @@ public class ZoneFlagMonsterEntryViewCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         commandContext
                 .getCause()
-                .sendMessage(Identity.nil(), Messages.getEnabledInfo(zone.containsFlag(FlagTypes.PREVENT_MONSTER)));
+                .sendMessage(Identity.nil(),
+                        Messages.getEnabledInfo(zone.containsFlag(FlagTypes.PREVENT_MONSTER)));
         return CommandResult.success();
     }
 }

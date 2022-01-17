@@ -32,36 +32,30 @@ import java.util.Optional;
 public class ZoneFlagViewBalanceCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zone_value",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_BALANCE_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_BALANCE_VIEW));
 
     public static final CurrencyArgument CURRENCY = new CurrencyArgument("currency_value",
-                                                                         (context, argument) -> {
-                                                                             CommandArgumentContext<Collection<Currency>> zoneArgument = new CommandArgumentContext<>(
-                                                                                     argument.getArgumentCommand(),
-                                                                                     null,
-                                                                                     argument.getFirstArgument(),
-                                                                                     context.getCommand());
-                                                                             Zone zone = context.getArgument(
-                                                                                     argument.getArgumentCommand(),
-                                                                                     ZONE);
+            (context, argument) -> {
+                CommandArgumentContext<Collection<Currency>> zoneArgument = new CommandArgumentContext<>(
+                        argument.getArgumentCommand(),
+                        null,
+                        argument.getFirstArgument(),
+                        context.getCommand());
+                Zone zone = context.getArgument(argument.getArgumentCommand(), ZONE);
 
-                                                                             return CommandArgumentResult.from(
-                                                                                     zoneArgument,
-                                                                                     zone
-                                                                                             .getEconomy()
-                                                                                             .getMoney()
-                                                                                             .keySet());
-                                                                         });
+                return CommandArgumentResult.from(zoneArgument,
+                        zone.getEconomy().getMoney().keySet());
+            });
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("balance"),
-                             new ExactArgument("view"),
-                             CURRENCY);
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("balance"),
+                new ExactArgument("view"),
+                CURRENCY);
     }
 
     @Override

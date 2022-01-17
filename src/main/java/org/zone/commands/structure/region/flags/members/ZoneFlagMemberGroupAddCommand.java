@@ -33,19 +33,19 @@ import java.util.Optional;
 public class ZoneFlagMemberGroupAddCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_MEMBER_CHANGE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_MEMBER_CHANGE));
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupId", ZONE);
     public static final UserArgument USER = new UserArgument("user");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("member"),
-                             ZONE,
-                             new ExactArgument("set", false, "set", "change", "apply", "add"),
-                             USER,
-                             GROUP);
+                new ExactArgument("member"),
+                ZONE,
+                new ExactArgument("set", false, "set", "change", "apply", "add"),
+                USER,
+                GROUP);
     }
 
     @Override
@@ -76,14 +76,14 @@ public class ZoneFlagMemberGroupAddCommand implements ArgumentCommand {
         context
                 .getCause()
                 .sendMessage(Identity.nil(),
-                             Component
-                                     .text("Moved " +
-                                                   profile.name().orElse("Unknown name") +
-                                                   " from " +
-                                                   previous.getName() +
-                                                   " to " +
-                                                   group.getName())
-                                     .color(NamedTextColor.AQUA));
+                        Component
+                                .text("Moved " +
+                                        profile.name().orElse("Unknown name") +
+                                        " from " +
+                                        previous.getName() +
+                                        " to " +
+                                        group.getName())
+                                .color(NamedTextColor.AQUA));
         if (Sponge.isServerAvailable()) {
             Optional<ServerPlayer> opPlayer = Sponge
                     .server()
@@ -92,14 +92,13 @@ public class ZoneFlagMemberGroupAddCommand implements ArgumentCommand {
                     .filter(p -> p.uniqueId().equals(profile.uuid()))
                     .findAny();
             opPlayer.ifPresent(player -> player.sendMessage(Identity.nil(),
-                                                            Component.text(
-                                                                    "You have been moved in '" +
-                                                                            zone.getName() +
-                                                                            "' from '" +
-                                                                            previous.getName() +
-                                                                            "' to '" +
-                                                                            group.getName() +
-                                                                            "'")));
+                    Component.text("You have been moved in '" +
+                            zone.getName() +
+                            "' from '" +
+                            previous.getName() +
+                            "' to '" +
+                            group.getName() +
+                            "'")));
         }
 
         zone.getMembers().addMember(group, profile.uniqueId());

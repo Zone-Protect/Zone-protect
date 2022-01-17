@@ -27,22 +27,22 @@ import java.util.Optional;
  */
 public class ZoneFlagInteractDoorEnabledCommand implements ArgumentCommand {
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_ENABLE));
 
     public static final BooleanArgument VALUE = new BooleanArgument("enabledValue",
-                                                                    "enable",
-                                                                    "disable");
+            "enable",
+            "disable");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("door"),
-                             new ExactArgument("set"),
-                             VALUE);
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("interact"),
+                new ExactArgument("door"),
+                new ExactArgument("set"),
+                VALUE);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ZoneFlagInteractDoorEnabledCommand implements ArgumentCommand {
             commandContext
                     .getCause()
                     .sendMessage(Identity.nil(),
-                                 Messages.getUpdatedMessage(FlagTypes.DOOR_INTERACTION));
+                            Messages.getUpdatedMessage(FlagTypes.DOOR_INTERACTION));
         } catch (ConfigurateException e) {
             e.printStackTrace();
             return CommandResult.error(Messages.getZoneSavingError(e));

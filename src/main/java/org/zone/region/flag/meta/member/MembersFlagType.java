@@ -101,9 +101,9 @@ public class MembersFlagType implements FlagType<MembersFlag> {
                         continue;
                     }
                     Group newGroup = new SimpleGroup(entry.getKey(),
-                                                     groupNode.key() + "",
-                                                     name,
-                                                     opParent.get());
+                            groupNode.key() + "",
+                            name,
+                            opParent.get());
                     List<String> keyIds = groupNode.node("keys").getList(String.class);
                     if (keyIds != null) {
                         Collection<GroupKey> groupKeys = keyIds
@@ -143,24 +143,24 @@ public class MembersFlagType implements FlagType<MembersFlag> {
         }
         for (Map.Entry<Group, Collection<UUID>> entry : save.getGroupMapping().entrySet()) {
             ConfigurationNode groupNode = node.node(entry.getKey().getPlugin().metadata().id(),
-                                                    entry.getKey().getKey());
+                    entry.getKey().getKey());
             groupNode.node("name").set(entry.getKey().getName());
             groupNode
                     .node("keys")
                     .set(entry
-                                 .getKey()
-                                 .getKeys()
-                                 .parallelStream()
-                                 .map(Identifiable::getId)
-                                 .collect(Collectors.toSet()));
+                            .getKey()
+                            .getKeys()
+                            .parallelStream()
+                            .map(Identifiable::getId)
+                            .collect(Collectors.toSet()));
             groupNode
                     .node("users")
                     .set(entry
-                                 .getValue()
-                                 .stream()
-                                 .map(UUID::toString)
-                                 .sorted()
-                                 .collect(Collectors.toList()));
+                            .getValue()
+                            .stream()
+                            .map(UUID::toString)
+                            .sorted()
+                            .collect(Collectors.toList()));
             Optional<Group> opParent = entry.getKey().getParent();
             if (opParent.isPresent()) {
                 groupNode.node("parent").set(opParent.get().getId());

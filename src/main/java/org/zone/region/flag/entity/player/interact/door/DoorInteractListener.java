@@ -22,8 +22,8 @@ import java.util.Optional;
 public class DoorInteractListener {
 
     @Listener
-    public void onPlayerInteractSecondary(InteractBlockEvent.Secondary event,
-                                          @First Player player) {
+    public void onPlayerInteractSecondary(
+            InteractBlockEvent.Secondary event, @First Player player) {
         BlockSnapshot snapshot = event.block();
         @NotNull Optional<Zone> opZone = ZonePlugin
                 .getZonesPlugin()

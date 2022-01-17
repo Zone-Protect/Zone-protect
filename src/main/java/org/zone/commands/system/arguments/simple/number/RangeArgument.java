@@ -19,9 +19,10 @@ public class RangeArgument<N extends Number> implements CommandArgument<N> {
     private final ParseCommandArgument<N> lower;
     private final ParseCommandArgument<N> higher;
 
-    public RangeArgument(CommandArgument<N> parser,
-                         ParseCommandArgument<N> lower,
-                         ParseCommandArgument<N> higher) {
+    public RangeArgument(
+            CommandArgument<N> parser,
+            ParseCommandArgument<N> lower,
+            ParseCommandArgument<N> higher) {
         this.parser = parser;
         this.lower = lower;
         this.higher = higher;
@@ -33,8 +34,8 @@ public class RangeArgument<N extends Number> implements CommandArgument<N> {
     }
 
     @Override
-    public CommandArgumentResult<N> parse(@NotNull CommandContext context,
-                                          @NotNull CommandArgumentContext<N> argument) throws
+    public CommandArgumentResult<N> parse(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<N> argument) throws
             IOException {
         CommandArgumentResult<N> numberResult = this.parser.parse(context, argument);
         N number = numberResult.value();
@@ -43,18 +44,18 @@ public class RangeArgument<N extends Number> implements CommandArgument<N> {
         if (number.doubleValue() < lower.doubleValue() ||
                 number.doubleValue() > higher.doubleValue()) {
             throw new IOException("Number of " +
-                                          number +
-                                          " wasn't between " +
-                                          lower +
-                                          "-" +
-                                          higher);
+                    number +
+                    " wasn't between " +
+                    lower +
+                    "-" +
+                    higher);
         }
         return numberResult;
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext commandContext,
-                                                          @NotNull CommandArgumentContext<N> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext commandContext, @NotNull CommandArgumentContext<N> argument) {
         try {
             N lowest = this.lower.parse(commandContext, argument).value();
             N highest = this.higher.parse(commandContext, argument).value();

@@ -1,10 +1,7 @@
 package org.zone.region.flag.entity.player.damage.attack;
 
 import org.spongepowered.api.entity.living.player.Player;
-import org.spongepowered.api.event.EventContextKeys;
 import org.spongepowered.api.event.Listener;
-import org.spongepowered.api.event.cause.entity.damage.DamageType;
-import org.spongepowered.api.event.cause.entity.damage.DamageTypes;
 import org.spongepowered.api.event.cause.entity.damage.source.EntityDamageSource;
 import org.spongepowered.api.event.entity.DamageEntityEvent;
 import org.spongepowered.api.event.filter.cause.First;
@@ -39,6 +36,6 @@ public class EntityDamagePlayerListener {
         Group group = zone.getMembers().getGroup(player.uniqueId());
         if (group.contains(GroupKeys.ENTITY_DAMAGE_PLAYER)) {
             event.setCancelled(true);
-         }
+        }
     }
 }

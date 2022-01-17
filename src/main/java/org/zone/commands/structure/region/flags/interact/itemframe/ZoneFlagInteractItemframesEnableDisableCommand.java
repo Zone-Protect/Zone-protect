@@ -28,21 +28,21 @@ import java.util.Optional;
 public class ZoneFlagInteractItemframesEnableDisableCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_ENABLE));
     public static final BooleanArgument ENABLED = new BooleanArgument("enableValue",
-                                                                      "enable",
-                                                                      "disable");
+            "enable",
+            "disable");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("itemframes"),
-                             new ExactArgument("set"),
-                             ENABLED);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("interact"),
+                new ExactArgument("itemframes"),
+                new ExactArgument("set"),
+                ENABLED);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class ZoneFlagInteractItemframesEnableDisableCommand implements ArgumentC
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         boolean enable = commandContext.getArgument(this, ENABLED);
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         ItemFrameInteractFlag interactItemframesFlag = zone

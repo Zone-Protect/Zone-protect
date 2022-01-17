@@ -27,8 +27,8 @@ public class ZoneCreateChunkSubStartCommand extends AbstractCreateZoneStartComma
     public static final ExactArgument BOUNDS = new ExactArgument("bounds");
     public static final ExactArgument CHUNK = new ExactArgument("chunk");
     public static final ZoneArgument ZONE = new ZoneArgument("zone",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OEVRRIDE_REGION_CREATE_SUB_BOUNDS_CHUNK));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_REGION_CREATE_SUB_BOUNDS_CHUNK));
     public static final RemainingArgument<String> NAME = new RemainingArgument<>(new StringArgument(
             "name"));
 
@@ -58,10 +58,8 @@ public class ZoneCreateChunkSubStartCommand extends AbstractCreateZoneStartComma
     }
 
     @Override
-    protected ZoneBuilder updateBuilder(CommandContext context,
-                                        String name,
-                                        BoundedRegion bounded,
-                                        ZoneBuilder builder) {
+    protected ZoneBuilder updateBuilder(
+            CommandContext context, String name, BoundedRegion bounded, ZoneBuilder builder) {
         return builder.setParent(context.getArgument(this, ZONE));
     }
 }

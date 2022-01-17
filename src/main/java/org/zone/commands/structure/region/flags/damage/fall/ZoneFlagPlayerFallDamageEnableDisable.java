@@ -23,21 +23,21 @@ import java.util.Optional;
 
 public class ZoneFlagPlayerFallDamageEnableDisable implements ArgumentCommand {
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_ENABLE));
     public static final BooleanArgument ENABLED = new BooleanArgument("enableValue",
-                                                                      "enable",
-                                                                      "disable");
+            "enable",
+            "disable");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("damage"),
-                             new ExactArgument("fall"),
-                             new ExactArgument("set"),
-                             ENABLED);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("damage"),
+                new ExactArgument("fall"),
+                new ExactArgument("set"),
+                ENABLED);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class ZoneFlagPlayerFallDamageEnableDisable implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         boolean enable = commandContext.getArgument(this, ENABLED);
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         PlayerFallDamageFlag playerFallDamageFlag = zone

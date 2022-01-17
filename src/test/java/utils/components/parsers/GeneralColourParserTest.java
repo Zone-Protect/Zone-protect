@@ -22,7 +22,7 @@ public class GeneralColourParserTest {
 
         //ACT
         Assertions.assertThrows(IllegalArgumentException.class,
-                                () -> ZoneComponentParser.fromString(testAgainst));
+                () -> ZoneComponentParser.fromString(testAgainst));
 
         //ASSERT
     }
@@ -60,7 +60,7 @@ public class GeneralColourParserTest {
 
         //ACT
         Assertions.assertThrows(IllegalArgumentException.class,
-                                () -> ZoneComponentParser.fromString(testAgainst));
+                () -> ZoneComponentParser.fromString(testAgainst));
     }
 
     @Test

@@ -40,8 +40,8 @@ public class ZoneCreateEndCommand implements ArgumentCommand {
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("create"),
-                             new ExactArgument("bounds"),
-                             new ExactArgument("end"));
+                new ExactArgument("bounds"),
+                new ExactArgument("end"));
     }
 
     @Override
@@ -114,12 +114,9 @@ public class ZoneCreateEndCommand implements ArgumentCommand {
         ChildRegion region = zone.getRegion();
         Collection<BoundedRegion> children = region.getTrueChildren();
         children.forEach(boundedRegion -> PlayerListener.runOnOutside(boundedRegion,
-                                                                      player.location().blockY() +
-                                                                              3,
-                                                                      player::resetBlockChange,
-                                                                      zone
-                                                                              .getParent()
-                                                                              .isPresent()));
+                player.location().blockY() + 3,
+                player::resetBlockChange,
+                zone.getParent().isPresent()));
 
         try {
             zone.save();

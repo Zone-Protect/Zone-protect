@@ -28,22 +28,22 @@ import java.util.Optional;
 public class ZoneFlagBlockPlaceSetEnabledCommand implements ArgumentCommand {
 
     public static final BooleanArgument VALUE = new BooleanArgument("enabledValue",
-                                                                    "enable",
-                                                                    "disable");
+            "enable",
+            "disable");
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_BLOCK_INTERACTION_PLACE_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_BLOCK_INTERACTION_PLACE_ENABLE));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("block"),
-                             new ExactArgument("place"),
-                             new ExactArgument("set"),
-                             VALUE);
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("interact"),
+                new ExactArgument("block"),
+                new ExactArgument("place"),
+                new ExactArgument("set"),
+                VALUE);
     }
 
     @Override

@@ -7,6 +7,9 @@ import org.zone.region.Zone;
 
 public class CreateZoneEvent implements ZoneEvent {
 
+    private final @NotNull Zone zone;
+    private final @NotNull Cause cause;
+
     public static class Pre extends CreateZoneEvent implements Cancellable {
 
         private boolean isCancelled;
@@ -32,9 +35,6 @@ public class CreateZoneEvent implements ZoneEvent {
             super(zone, cause);
         }
     }
-
-    private final @NotNull Zone zone;
-    private final @NotNull Cause cause;
 
     public CreateZoneEvent(@NotNull Zone zone, @NotNull Cause cause) {
         this.zone = zone;

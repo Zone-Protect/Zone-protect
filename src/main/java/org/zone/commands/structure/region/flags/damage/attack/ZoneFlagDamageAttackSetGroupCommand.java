@@ -25,20 +25,20 @@ import java.util.Optional;
 public class ZoneFlagDamageAttackSetGroupCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_DAMAGE_ATTACK_SET_GROUP));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DAMAGE_ATTACK_SET_GROUP));
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupId", ZONE_VALUE);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("damage"),
-                             new ExactArgument("attack"),
-                             new ExactArgument("set"),
-                             new ExactArgument("group"),
-                             GROUP);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("damage"),
+                new ExactArgument("attack"),
+                new ExactArgument("set"),
+                new ExactArgument("group"),
+                GROUP);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class ZoneFlagDamageAttackSetGroupCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         EntityDamagePlayerFlag entityDamagePlayerFlag = zone
                 .getFlag(FlagTypes.ENTITY_DAMAGE_PLAYER_FLAG_TYPE)

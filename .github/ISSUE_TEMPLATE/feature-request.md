@@ -1,9 +1,6 @@
 ---
-name: Feature Request
-about: Want a none flag related feature? Here is the place to report
-title: "[Feature]"
-labels: feature
-assignees: ''
+name: Feature Request about: Want a none flag related feature? Here is the place to report title: "[Feature]"
+labels: feature assignees: ''
 
 ---
 
@@ -11,8 +8,8 @@ assignees: ''
 
 ## Description of feature?
 
->> What is this feature
+> > What is this feature
 
 ## Extra info
 
->> anything P.S notes?
+> > anything P.S notes?

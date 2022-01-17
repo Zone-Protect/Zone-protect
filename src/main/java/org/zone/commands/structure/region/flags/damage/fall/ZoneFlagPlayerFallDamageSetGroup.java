@@ -25,20 +25,20 @@ import java.util.Optional;
 public class ZoneFlagPlayerFallDamageSetGroup implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_SET_GROUP));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DAMAGE_FALL_SET_GROUP));
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupId", ZONE_VALUE);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("damage"),
-                             new ExactArgument("fall"),
-                             new ExactArgument("set"),
-                             new ExactArgument("group"),
-                             GROUP);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("damage"),
+                new ExactArgument("fall"),
+                new ExactArgument("set"),
+                new ExactArgument("group"),
+                GROUP);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class ZoneFlagPlayerFallDamageSetGroup implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         PlayerFallDamageFlag playerFallDamageFlag = zone
                 .getFlag(FlagTypes.PLAYER_FALL_DAMAGE_FLAG_TYPE)

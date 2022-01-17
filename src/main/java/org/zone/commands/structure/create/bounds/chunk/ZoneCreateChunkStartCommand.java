@@ -54,10 +54,8 @@ public class ZoneCreateChunkStartCommand extends AbstractCreateZoneStartCommand 
     }
 
     @Override
-    protected ZoneBuilder updateBuilder(CommandContext context,
-                                        String name,
-                                        BoundedRegion bounded,
-                                        ZoneBuilder builder) {
+    protected ZoneBuilder updateBuilder(
+            CommandContext context, String name, BoundedRegion bounded, ZoneBuilder builder) {
         return builder;
     }
 }

@@ -75,8 +75,8 @@ public class ZoneSpongeCommand implements Command.Raw {
     }
 
     @Override
-    public CommandResult process(@NotNull CommandCause cause,
-                                 @NotNull ArgumentReader.Mutable arguments) throws
+    public CommandResult process(
+            @NotNull CommandCause cause, @NotNull ArgumentReader.Mutable arguments) throws
             CommandException {
         String input = arguments.input();
         String[] args = input.split(" ");
@@ -98,7 +98,7 @@ public class ZoneSpongeCommand implements Command.Raw {
                         .map(e -> e.argument().getUsage())
                         .collect(Collectors.toSet())
                         .forEach(e -> cause.sendMessage(Identity.nil(),
-                                                        Messages.getFormattedErrorMessage(e)));
+                                Messages.getFormattedErrorMessage(e)));
             } else {
                 cause.sendMessage(Identity.nil(), Messages.getUnknownError());
             }
@@ -106,7 +106,7 @@ public class ZoneSpongeCommand implements Command.Raw {
         }
         if (!opCommand.get().hasPermission(cause)) {
             cause.sendMessage(Identity.nil(),
-                              Messages.getMissingPermissionForCommand(opCommand.get()));
+                    Messages.getMissingPermissionForCommand(opCommand.get()));
             return CommandResult.success();
         }
         try {
@@ -122,8 +122,8 @@ public class ZoneSpongeCommand implements Command.Raw {
     }
 
     @Override
-    public List<CommandCompletion> complete(@NotNull CommandCause cause,
-                                            @NotNull ArgumentReader.Mutable arguments) {
+    public List<CommandCompletion> complete(
+            @NotNull CommandCause cause, @NotNull ArgumentReader.Mutable arguments) {
         String input = arguments.input();
         String[] args = input.split(" ");
         if (input.endsWith(" ")) {

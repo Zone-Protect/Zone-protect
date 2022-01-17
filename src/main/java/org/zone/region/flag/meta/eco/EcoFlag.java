@@ -31,15 +31,12 @@ public class EcoFlag implements Flag {
 
     public EcoFlag(Map<? extends Currency, ? extends Number> money) {
         this.money.putAll(money
-                                  .entrySet()
-                                  .stream()
-                                  .map(entry -> new AbstractMap.SimpleImmutableEntry<>(entry.getKey(),
-                                                                                       BigDecimal.valueOf(
-                                                                                               entry
-                                                                                                       .getValue()
-                                                                                                       .doubleValue())))
-                                  .collect(Collectors.toMap(AbstractMap.SimpleImmutableEntry::getKey,
-                                                            AbstractMap.SimpleImmutableEntry::getValue)));
+                .entrySet()
+                .stream()
+                .map(entry -> new AbstractMap.SimpleImmutableEntry<>(entry.getKey(),
+                        BigDecimal.valueOf(entry.getValue().doubleValue())))
+                .collect(Collectors.toMap(AbstractMap.SimpleImmutableEntry::getKey,
+                        AbstractMap.SimpleImmutableEntry::getValue)));
     }
 
     /**
@@ -60,10 +57,10 @@ public class EcoFlag implements Flag {
      */
     public @NotNull BigDecimal getMoney(@NotNull Currency currency) {
         return this.money.getOrDefault(currency,
-                                       BigDecimal.valueOf(Sponge
-                                                                  .serviceProvider()
-                                                                  .provide(EconomyService.class)
-                                                                  .isPresent() ? 0 : Double.MAX_VALUE));
+                BigDecimal.valueOf(Sponge
+                        .serviceProvider()
+                        .provide(EconomyService.class)
+                        .isPresent() ? 0 : Double.MAX_VALUE));
     }
 
     /**
@@ -103,23 +100,23 @@ public class EcoFlag implements Flag {
      *
      * @return The transaction
      */
-    public @NotNull DepositTransaction deposit(@NotNull Currency currency,
-                                               @NotNull BigDecimal amount) {
+    public @NotNull DepositTransaction deposit(
+            @NotNull Currency currency, @NotNull BigDecimal amount) {
         if (Sponge.serviceProvider().provide(EconomyService.class).isEmpty()) {
             return new DepositTransaction(new TransactionBuilder()
-                                                  .setFlag(this)
-                                                  .setAfter(BigDecimal.valueOf(Double.MAX_VALUE))
-                                                  .setOriginal(BigDecimal.valueOf(Double.MAX_VALUE))
-                                                  .setState(TransactionState.FAIL));
+                    .setFlag(this)
+                    .setAfter(BigDecimal.valueOf(Double.MAX_VALUE))
+                    .setOriginal(BigDecimal.valueOf(Double.MAX_VALUE))
+                    .setState(TransactionState.FAIL));
         }
         BigDecimal money = this.getMoney(currency);
         BigDecimal nextMoney = money.add(amount);
         this.setBalance(currency, money);
         return new DepositTransaction(new TransactionBuilder()
-                                              .setState(TransactionState.SUCCESS)
-                                              .setOriginal(money)
-                                              .setAfter(nextMoney)
-                                              .setFlag(this));
+                .setState(TransactionState.SUCCESS)
+                .setOriginal(money)
+                .setAfter(nextMoney)
+                .setFlag(this));
     }
 
     /**
@@ -130,23 +127,23 @@ public class EcoFlag implements Flag {
      *
      * @return The transaction
      */
-    public @NotNull WithdrawTransaction withdraw(@NotNull Currency currency,
-                                                 @NotNull BigDecimal amount) {
+    public @NotNull WithdrawTransaction withdraw(
+            @NotNull Currency currency, @NotNull BigDecimal amount) {
         if (Sponge.serviceProvider().provide(EconomyService.class).isEmpty()) {
             return new WithdrawTransaction(new TransactionBuilder()
-                                                   .setFlag(this)
-                                                   .setAfter(BigDecimal.valueOf(Double.MAX_VALUE))
-                                                   .setOriginal(BigDecimal.valueOf(Double.MAX_VALUE))
-                                                   .setState(TransactionState.FAIL));
+                    .setFlag(this)
+                    .setAfter(BigDecimal.valueOf(Double.MAX_VALUE))
+                    .setOriginal(BigDecimal.valueOf(Double.MAX_VALUE))
+                    .setState(TransactionState.FAIL));
         }
         BigDecimal money = this.getMoney(currency);
         BigDecimal nextMoney = money.subtract(amount);
         this.setBalance(currency, money);
         return new WithdrawTransaction(new TransactionBuilder()
-                                               .setState(TransactionState.SUCCESS)
-                                               .setOriginal(money)
-                                               .setAfter(nextMoney)
-                                               .setFlag(this));
+                .setState(TransactionState.SUCCESS)
+                .setOriginal(money)
+                .setAfter(nextMoney)
+                .setFlag(this));
     }
 
     @Override

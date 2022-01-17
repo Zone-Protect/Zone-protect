@@ -24,20 +24,20 @@ import java.util.Optional;
 public class ZoneFlagLeavingSetMessageCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zone_value",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_LEAVING_SET));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_LEAVING_SET));
     public static final ComponentRemainingArgument MESSAGE = new ComponentRemainingArgument(
             "message_value");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("leaving"),
-                             new ExactArgument("message"),
-                             new ExactArgument("set"),
-                             MESSAGE);
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("leaving"),
+                new ExactArgument("message"),
+                new ExactArgument("set"),
+                MESSAGE);
     }
 
     @Override

@@ -30,9 +30,9 @@ public class UserArgument implements CommandArgument<GameProfile> {
     }
 
     @Override
-    public CommandArgumentResult<GameProfile> parse(@NotNull CommandContext context,
-                                                    @NotNull CommandArgumentContext<GameProfile> argument) throws
-            IOException {
+    public CommandArgumentResult<GameProfile> parse(
+            @NotNull CommandContext context,
+            @NotNull CommandArgumentContext<GameProfile> argument) throws IOException {
         UserManager manager;
         if (Sponge.isServerAvailable()) {
             manager = Sponge.server().userManager();
@@ -55,8 +55,9 @@ public class UserArgument implements CommandArgument<GameProfile> {
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext commandContext,
-                                                          @NotNull CommandArgumentContext<GameProfile> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext commandContext,
+            @NotNull CommandArgumentContext<GameProfile> argument) {
         UserManager manager;
         if (Sponge.isServerAvailable()) {
             manager = Sponge.server().userManager();

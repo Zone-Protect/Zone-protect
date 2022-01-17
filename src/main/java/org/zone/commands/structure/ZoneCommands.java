@@ -1,19 +1,23 @@
 package org.zone.commands.structure;
 
+import org.zone.ZonePlugin;
 import org.zone.commands.structure.create.bounds.ZoneCreateEndCommand;
-import org.zone.commands.structure.create.bounds.exact.ZoneCreateStartCommand;
-import org.zone.commands.structure.create.bounds.exact.ZoneCreateSubStartCommand;
 import org.zone.commands.structure.create.bounds.chunk.ZoneCreateChunkStartCommand;
 import org.zone.commands.structure.create.bounds.chunk.ZoneCreateChunkSubStartCommand;
+import org.zone.commands.structure.create.bounds.exact.ZoneCreateStartCommand;
+import org.zone.commands.structure.create.bounds.exact.ZoneCreateSubStartCommand;
 import org.zone.commands.structure.info.ZonePluginInfoCommand;
 import org.zone.commands.structure.leave.LeaveZoneCommand;
+import org.zone.commands.structure.region.flags.damage.attack.ZoneFlagDamageAttackSetEnabledCommand;
 import org.zone.commands.structure.region.flags.damage.attack.ZoneFlagDamageAttackSetGroupCommand;
 import org.zone.commands.structure.region.flags.damage.attack.ZoneFlagDamageAttackView;
+import org.zone.commands.structure.region.flags.damage.fall.ZoneFlagPlayerFallDamageEnableDisable;
 import org.zone.commands.structure.region.flags.damage.fall.ZoneFlagPlayerFallDamageSetGroup;
 import org.zone.commands.structure.region.flags.damage.fall.ZoneFlagPlayerFallDamageView;
 import org.zone.commands.structure.region.flags.eco.ZoneFlagViewBalanceCommand;
 import org.zone.commands.structure.region.flags.entry.monster.ZoneFlagMonsterEntryEnabledCommand;
 import org.zone.commands.structure.region.flags.entry.monster.ZoneFlagMonsterEntryViewCommand;
+import org.zone.commands.structure.region.flags.entry.player.ZoneFlagPlayerEntrySetEnabledCommand;
 import org.zone.commands.structure.region.flags.entry.player.ZoneFlagPlayerEntrySetGroupCommand;
 import org.zone.commands.structure.region.flags.entry.player.ZoneFlagPlayerEntryViewCommand;
 import org.zone.commands.structure.region.flags.interact.destroy.ZoneFlagBlockBreakSetEnabledCommand;
@@ -28,20 +32,18 @@ import org.zone.commands.structure.region.flags.interact.itemframe.ZoneFlagInter
 import org.zone.commands.structure.region.flags.interact.place.ZoneFlagBlockPlaceSetEnabledCommand;
 import org.zone.commands.structure.region.flags.interact.place.ZoneFlagBlockPlaceSetGroupCommand;
 import org.zone.commands.structure.region.flags.interact.place.ZoneFlagBlockPlaceViewCommand;
+import org.zone.commands.structure.region.flags.members.ZoneFlagMemberGroupAddCommand;
+import org.zone.commands.structure.region.flags.members.ZoneFlagMemberGroupViewCommand;
 import org.zone.commands.structure.region.flags.messages.greetings.ZoneFlagGreetingsRemoveCommand;
 import org.zone.commands.structure.region.flags.messages.greetings.ZoneFlagGreetingsSetMessageCommand;
 import org.zone.commands.structure.region.flags.messages.greetings.ZoneFlagGreetingsViewCommand;
 import org.zone.commands.structure.region.flags.messages.leaving.ZoneFlagLeavingRemoveCommand;
 import org.zone.commands.structure.region.flags.messages.leaving.ZoneFlagLeavingSetMessageCommand;
 import org.zone.commands.structure.region.flags.messages.leaving.ZoneFlagLeavingViewCommand;
-import org.zone.commands.structure.region.flags.members.ZoneFlagMemberGroupAddCommand;
-import org.zone.commands.structure.region.flags.members.ZoneFlagMemberGroupViewCommand;
-import org.zone.commands.structure.region.flags.damage.attack.ZoneFlagDamageAttackSetEnabledCommand;
-import org.zone.commands.structure.region.flags.damage.fall.ZoneFlagPlayerFallDamageEnableDisable;
-import org.zone.commands.structure.region.flags.entry.player.ZoneFlagPlayerEntrySetEnabledCommand;
 import org.zone.commands.structure.region.info.ZoneInfoCommand;
 import org.zone.commands.structure.region.info.bounds.ZoneInfoBoundsShowCommand;
 import org.zone.commands.system.ArgumentCommand;
+import org.zone.commands.system.CommandArgument;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -113,6 +115,41 @@ public interface ZoneCommands {
                 })
                 .filter(Objects::nonNull)
                 .collect(Collectors.toSet());
+        for (ArgumentCommand arg : collection) {
+            for (ArgumentCommand argCmd : collection) {
+                if (argCmd.equals(arg)) {
+                    continue;
+                }
+                String argNode = arg
+                        .getArguments()
+                        .parallelStream()
+                        .map(CommandArgument::getId)
+                        .collect(Collectors.joining("."));
+                String argCmdNode = argCmd
+                        .getArguments()
+                        .parallelStream()
+                        .map(CommandArgument::getId)
+                        .collect(Collectors.joining("."));
+                if (argNode.equals(argCmdNode)) {
+                    ZonePlugin
+                            .getZonesPlugin()
+                            .getLogger()
+                            .error("The two commands have the same:");
+                    ZonePlugin
+                            .getZonesPlugin()
+                            .getLogger()
+                            .error(" - " + arg.getClass().getSimpleName());
+                    ZonePlugin
+                            .getZonesPlugin()
+                            .getLogger()
+                            .error(" - " + argCmd.getClass().getSimpleName());
+                    ZonePlugin.getZonesPlugin().getLogger().error(" -/- (" + argNode + ")");
+                    ZonePlugin.getZonesPlugin().getLogger().error(" -/- (" + argCmdNode + ")");
+
+                    break;
+                }
+            }
+        }
         return new ZoneSpongeCommand(collection);
     }
 }

@@ -19,8 +19,7 @@ public class ColourParserTest {
 
         //ACT
         Assertions.assertThrows(IllegalArgumentException.class,
-                                () -> new ComponentColourParser().withTag(testAgainst,
-                                                                          plainComponent));
+                () -> new ComponentColourParser().withTag(testAgainst, plainComponent));
 
         //ASSERT
     }
@@ -61,8 +60,7 @@ public class ColourParserTest {
 
         //ACT
         Assertions.assertThrows(IllegalArgumentException.class,
-                                () -> new ComponentColourParser().withTag(testAgainst,
-                                                                          plainComponent));
+                () -> new ComponentColourParser().withTag(testAgainst, plainComponent));
     }
 
     @Test

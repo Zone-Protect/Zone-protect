@@ -93,15 +93,15 @@ public class ComponentColourParser implements ComponentPartParser {
             return component.color(TextColor.color(red, green, blue));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Unknown number for RGB on '" +
-                                                       tag +
-                                                       "' -> RGB: " +
-                                                       "'" +
-                                                       redString +
-                                                       "', '" +
-                                                       greenSplit +
-                                                       "', '" +
-                                                       blueString +
-                                                       "'");
+                    tag +
+                    "' -> RGB: " +
+                    "'" +
+                    redString +
+                    "', '" +
+                    greenSplit +
+                    "', '" +
+                    blueString +
+                    "'");
         }
     }
 
@@ -164,11 +164,11 @@ public class ComponentColourParser implements ComponentPartParser {
                         .filter(name -> name.toLowerCase().startsWith(colourName))
                         .collect(Collectors.toSet());
                 colours.addAll(cookies
-                                       .parallelStream()
-                                       .map(NamedTextColor::toString)
-                                       .filter(name -> name.toLowerCase().equals(colourName))
-                                       .map(s -> s + ">")
-                                       .collect(Collectors.toSet()));
+                        .parallelStream()
+                        .map(NamedTextColor::toString)
+                        .filter(name -> name.toLowerCase().equals(colourName))
+                        .map(s -> s + ">")
+                        .collect(Collectors.toSet()));
                 return colours;
             }
             if (noSpace.length() <= 12 &&

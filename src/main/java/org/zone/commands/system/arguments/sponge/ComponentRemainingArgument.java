@@ -28,9 +28,8 @@ public class ComponentRemainingArgument implements CommandArgument<Component> {
     }
 
     @Override
-    public CommandArgumentResult<Component> parse(CommandContext context,
-                                                  CommandArgumentContext<Component> argument) throws
-            IOException {
+    public CommandArgumentResult<Component> parse(
+            CommandContext context, CommandArgumentContext<Component> argument) throws IOException {
         int first = argument.getFirstArgument();
         int length = context.getCommand().length;
 
@@ -47,8 +46,8 @@ public class ComponentRemainingArgument implements CommandArgument<Component> {
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(CommandContext commandContext,
-                                                          CommandArgumentContext<Component> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            CommandContext commandContext, CommandArgumentContext<Component> argument) {
         int first = argument.getFirstArgument();
         int length = commandContext.getCommand().length;
 

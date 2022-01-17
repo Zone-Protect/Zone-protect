@@ -25,8 +25,8 @@ public class OptionalArgument<T> implements CommandArgument<T> {
         }
 
         @Override
-        public CommandArgumentResult<T> parse(@NotNull CommandContext context,
-                                              @NotNull CommandArgumentContext<T> argument) {
+        public CommandArgumentResult<T> parse(
+                @NotNull CommandContext context, @NotNull CommandArgumentContext<T> argument) {
             return CommandArgumentResult.from(argument, 0, this.value);
         }
     }
@@ -56,25 +56,25 @@ public class OptionalArgument<T> implements CommandArgument<T> {
     }
 
     @Override
-    public CommandArgumentResult<T> parse(CommandContext context,
-                                          CommandArgumentContext<T> argument) throws IOException {
+    public CommandArgumentResult<T> parse(
+            CommandContext context, CommandArgumentContext<T> argument) throws IOException {
         if (context.getCommand().length == argument.getFirstArgument()) {
             return CommandArgumentResult.from(argument,
-                                              0,
-                                              this.value.parse(context, argument).value());
+                    0,
+                    this.value.parse(context, argument).value());
         }
         try {
             return this.arg.parse(context, argument);
         } catch (IOException e) {
             return CommandArgumentResult.from(argument,
-                                              0,
-                                              this.value.parse(context, argument).value());
+                    0,
+                    this.value.parse(context, argument).value());
         }
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext commandContext,
-                                                          @NotNull CommandArgumentContext<T> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext commandContext, @NotNull CommandArgumentContext<T> argument) {
         return this.arg.suggest(commandContext, argument);
     }
 }

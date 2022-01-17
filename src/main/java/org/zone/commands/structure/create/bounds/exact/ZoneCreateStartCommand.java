@@ -31,10 +31,10 @@ public class ZoneCreateStartCommand extends AbstractCreateZoneStartCommand {
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("create"),
-                             new ExactArgument("bounds"),
-                             new ExactArgument("block"),
-                             new ExactArgument("start"),
-                             NAME);
+                new ExactArgument("bounds"),
+                new ExactArgument("block"),
+                new ExactArgument("start"),
+                NAME);
     }
 
     @Override
@@ -58,10 +58,8 @@ public class ZoneCreateStartCommand extends AbstractCreateZoneStartCommand {
     }
 
     @Override
-    protected ZoneBuilder updateBuilder(CommandContext context,
-                                        String name,
-                                        BoundedRegion bounded,
-                                        ZoneBuilder builder) {
+    protected ZoneBuilder updateBuilder(
+            CommandContext context, String name, BoundedRegion bounded, ZoneBuilder builder) {
         return builder;
     }
 }

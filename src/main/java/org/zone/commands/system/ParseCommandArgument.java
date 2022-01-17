@@ -8,7 +8,8 @@ import java.io.IOException;
 
 public interface ParseCommandArgument<T> {
 
-    CommandArgumentResult<T> parse(@NotNull CommandContext context,
-                                   @NotNull CommandArgumentContext<T> argument) throws IOException;
+    CommandArgumentResult<T> parse(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<T> argument) throws
+            IOException;
 
 }

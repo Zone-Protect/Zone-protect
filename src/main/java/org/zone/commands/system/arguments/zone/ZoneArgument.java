@@ -110,21 +110,21 @@ public class ZoneArgument implements GUICommandArgument<Zone> {
     }
 
     @Override
-    public CommandArgumentResult<Zone> parse(@NotNull CommandContext context,
-                                             @NotNull CommandArgumentContext<Zone> argument) throws
+    public CommandArgumentResult<Zone> parse(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<Zone> argument) throws
             IOException {
         Zone result = this
                 .getZones(context)
                 .filter(zone -> zone.getId().equalsIgnoreCase(argument.getFocusArgument()))
                 .findAny()
                 .orElseThrow(() -> new IOException("Could not find zone of " +
-                                                           argument.getFocusArgument()));
+                        argument.getFocusArgument()));
         return CommandArgumentResult.from(argument, result);
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext context,
-                                                          @NotNull CommandArgumentContext<Zone> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<Zone> argument) {
         return this.suggest(context, argument.getFocusArgument());
     }
 
@@ -169,8 +169,8 @@ public class ZoneArgument implements GUICommandArgument<Zone> {
         return zones;
     }
 
-    private Collection<CommandCompletion> suggest(@NotNull CommandContext context,
-                                                  @NotNull String focus) {
+    private Collection<CommandCompletion> suggest(
+            @NotNull CommandContext context, @NotNull String focus) {
 
         return this
                 .getZones(context)

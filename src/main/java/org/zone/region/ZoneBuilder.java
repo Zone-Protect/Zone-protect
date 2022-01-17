@@ -33,12 +33,12 @@ public class ZoneBuilder {
     private ResourceKey world;
     private BoundsPayment payment;
 
-    public void setPayment(BoundsPayment payment) {
-        this.payment = payment;
-    }
-
     public BoundsPayment getPayment() {
         return this.payment;
+    }
+
+    public void setPayment(BoundsPayment payment) {
+        this.payment = payment;
     }
 
     public ResourceKey getWorldKey() {
@@ -134,8 +134,9 @@ public class ZoneBuilder {
         return this;
     }
 
-    public ZoneBuilder setParent(@SuppressWarnings("TypeMayBeWeakened") Zone parent) {
+    public ZoneBuilder setParent(Zone parent) {
         this.parentId = parent.getId();
+        parent.getWorldKey().ifPresent(this::setWorld);
         return this;
     }
 

@@ -12,10 +12,11 @@ public class CommandArgumentContext<T> {
     private int firstArgument;
     private @NotNull String[] command;
 
-    public CommandArgumentContext(@NotNull ArgumentCommand runner,
-                                  @Nullable CommandArgument<T> argument,
-                                  int firstArgument,
-                                  @NotNull String... command) {
+    public CommandArgumentContext(
+            @NotNull ArgumentCommand runner,
+            @Nullable CommandArgument<T> argument,
+            int firstArgument,
+            @NotNull String... command) {
         this.argument = argument;
         this.firstArgument = firstArgument;
         this.command = command;
@@ -34,10 +35,10 @@ public class CommandArgumentContext<T> {
         int last = this.command.length;
         if (this.firstArgument >= last) {
             throw new IndexOutOfBoundsException("min (" +
-                                                        this.firstArgument +
-                                                        ") is greater then max (" +
-                                                        last +
-                                                        ")");
+                    this.firstArgument +
+                    ") is greater then max (" +
+                    last +
+                    ")");
         }
         String[] arr = new String[last - this.firstArgument];
         System.arraycopy(this.command, this.firstArgument, arr, 0, arr.length);

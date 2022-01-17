@@ -40,18 +40,18 @@ public class ZoneFlagMemberGroupViewCommand implements ArgumentCommand {
 
     }), 1);
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_MEMBERS_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_MEMBERS_VIEW));
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupId", ZONE);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("members"),
-                             ZONE,
-                             new ExactArgument("view"),
-                             GROUP,
-                             this.PAGE);
+                new ExactArgument("members"),
+                ZONE,
+                new ExactArgument("view"),
+                GROUP,
+                this.PAGE);
     }
 
     @Override

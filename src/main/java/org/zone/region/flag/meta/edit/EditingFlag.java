@@ -7,7 +7,6 @@ import org.zone.region.bounds.BoundedRegion;
 import org.zone.region.bounds.PositionType;
 import org.zone.region.bounds.mode.BoundMode;
 import org.zone.region.flag.Flag;
-import org.zone.region.flag.FlagType;
 import org.zone.region.flag.FlagTypes;
 
 import java.util.Optional;
@@ -24,11 +23,12 @@ public class EditingFlag implements Flag {
     private final @NotNull BoundMode boundMode;
     private @NotNull Vector3i newPosition;
 
-    public EditingFlag(@NotNull BoundedRegion region,
-                       @NotNull PositionType positionType,
-                       @NotNull Vector3i newPosition,
-                       @NotNull BoundMode boundMode,
-                       @Nullable UUID uuid) {
+    public EditingFlag(
+            @NotNull BoundedRegion region,
+            @NotNull PositionType positionType,
+            @NotNull Vector3i newPosition,
+            @NotNull BoundMode boundMode,
+            @Nullable UUID uuid) {
         this.playerEditing = uuid;
         this.positionType = positionType;
         this.newPosition = newPosition;

@@ -63,7 +63,7 @@ public final class ZoneComponentParser {
         }
 
         String previous = buffer.toString();
-        if(previous.isEmpty() && tagStart != null){
+        if (previous.isEmpty() && tagStart != null) {
             previous = peek.substring(tagStart);
         }
         final String finalPrevious = previous;

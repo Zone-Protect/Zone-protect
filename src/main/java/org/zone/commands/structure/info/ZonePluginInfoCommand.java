@@ -36,8 +36,8 @@ public class ZonePluginInfoCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         String pluginName = ZonePlugin
                 .getZonesPlugin()
                 .getPluginContainer()

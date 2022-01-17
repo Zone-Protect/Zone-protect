@@ -35,8 +35,8 @@ public class ZoneGroupArgument implements CommandArgument<Group> {
     }
 
     @Override
-    public @NotNull CommandArgumentResult<Group> parse(@NotNull CommandContext context,
-                                              @NotNull CommandArgumentContext<Group> argument) throws
+    public @NotNull CommandArgumentResult<Group> parse(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<Group> argument) throws
             IOException {
         Zone zone = context.getArgument(argument.getArgumentCommand(), this.zoneKey);
         Set<Group> groups = zone.getMembers().getGroups();
@@ -50,8 +50,8 @@ public class ZoneGroupArgument implements CommandArgument<Group> {
     }
 
     @Override
-    public @NotNull Collection<CommandCompletion> suggest(@NotNull CommandContext context,
-                                                 @NotNull CommandArgumentContext<Group> argument) {
+    public @NotNull Collection<CommandCompletion> suggest(
+            @NotNull CommandContext context, @NotNull CommandArgumentContext<Group> argument) {
         Zone zone = context.getArgument(argument.getArgumentCommand(), this.zoneKey);
         Set<Group> groups = zone.getMembers().getGroups();
         String target = argument.getFocusArgument().toLowerCase();

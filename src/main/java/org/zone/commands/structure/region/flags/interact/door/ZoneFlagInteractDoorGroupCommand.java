@@ -29,21 +29,21 @@ import java.util.Optional;
 public class ZoneFlagInteractDoorGroupCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_SET_GROUP));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_DOOR_INTERACTION_SET_GROUP));
 
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupId", ZONE);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("door"),
-                             new ExactArgument("set"),
-                             new ExactArgument("group"),
-                             GROUP);
+                new ExactArgument("flag"),
+                ZONE,
+                new ExactArgument("interact"),
+                new ExactArgument("door"),
+                new ExactArgument("set"),
+                new ExactArgument("group"),
+                GROUP);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ZoneFlagInteractDoorGroupCommand implements ArgumentCommand {
             commandContext
                     .getCause()
                     .sendMessage(Identity.nil(),
-                                 Messages.getUpdatedMessage(FlagTypes.DOOR_INTERACTION));
+                            Messages.getUpdatedMessage(FlagTypes.DOOR_INTERACTION));
         } catch (ConfigurateException e) {
             e.printStackTrace();
             return CommandResult.error(Messages.getZoneSavingError(e));

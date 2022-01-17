@@ -29,20 +29,20 @@ import java.util.Optional;
 public class ZoneFlagInteractItemframesGroupCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_SET_GROUP));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ITEM_FRAME_INTERACTION_SET_GROUP));
     public static final ZoneGroupArgument GROUP = new ZoneGroupArgument("groupID", ZONE_VALUE);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("interact"),
-                             new ExactArgument("itemframes"),
-                             new ExactArgument("set"),
-                             new ExactArgument("group"),
-                             GROUP);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("interact"),
+                new ExactArgument("itemframes"),
+                new ExactArgument("set"),
+                new ExactArgument("group"),
+                GROUP);
     }
 
     @Override
@@ -56,8 +56,8 @@ public class ZoneFlagInteractItemframesGroupCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
         @NotNull ItemFrameInteractFlag interactItemframesFlag = zone
                 .getFlag(FlagTypes.ITEM_FRAME_INTERACT)
@@ -67,14 +67,14 @@ public class ZoneFlagInteractItemframesGroupCommand implements ArgumentCommand {
         commandContext
                 .getCause()
                 .sendMessage(Identity.nil(),
-                             Messages.getUpdatedMessage(FlagTypes.ITEM_FRAME_INTERACT));
+                        Messages.getUpdatedMessage(FlagTypes.ITEM_FRAME_INTERACT));
         zone.setFlag(interactItemframesFlag);
         try {
             zone.save();
             commandContext
                     .getCause()
                     .sendMessage(Identity.nil(),
-                                 Messages.getUpdatedMessage(FlagTypes.ITEM_FRAME_INTERACT));
+                            Messages.getUpdatedMessage(FlagTypes.ITEM_FRAME_INTERACT));
         } catch (ConfigurateException ce) {
             ce.printStackTrace();
             return CommandResult.error(Messages.getZoneSavingError(ce));

@@ -3,6 +3,7 @@ package org.zone.commands.structure.region.flags.entry.player;
 import net.kyori.adventure.text.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.command.CommandResult;
+import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.configurate.ConfigurateException;
 import org.zone.commands.system.ArgumentCommand;
 import org.zone.commands.system.CommandArgument;
@@ -15,6 +16,7 @@ import org.zone.permissions.ZonePermissions;
 import org.zone.region.Zone;
 import org.zone.region.flag.FlagTypes;
 import org.zone.region.flag.entity.player.move.preventing.PreventPlayersFlag;
+import org.zone.region.flag.entity.player.move.preventing.PreventPlayersListener;
 import org.zone.utils.Messages;
 
 import java.util.Arrays;
@@ -23,21 +25,21 @@ import java.util.Optional;
 
 public class ZoneFlagPlayerEntrySetEnabledCommand implements ArgumentCommand {
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_ENTRY_PLAYER_ENABLE));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_ENTRY_PLAYER_ENABLE));
     public static final BooleanArgument ENABLE = new BooleanArgument("enableValue",
-                                                                     "enable",
-                                                                     "disable");
+            "enable",
+            "disable");
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("flag"),
-                             ZONE_VALUE,
-                             new ExactArgument("entry"),
-                             new ExactArgument("player"),
-                             new ExactArgument("set"),
-                             ENABLE);
+                new ExactArgument("flag"),
+                ZONE_VALUE,
+                new ExactArgument("entry"),
+                new ExactArgument("player"),
+                new ExactArgument("set"),
+                ENABLE);
     }
 
     @Override
@@ -51,8 +53,8 @@ public class ZoneFlagPlayerEntrySetEnabledCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         boolean enable = commandContext.getArgument(this, ENABLE);
         Zone zone = commandContext.getArgument(this, ZONE_VALUE);
 
@@ -70,6 +72,20 @@ public class ZoneFlagPlayerEntrySetEnabledCommand implements ArgumentCommand {
         } catch (ConfigurateException ce) {
             ce.printStackTrace();
             commandContext.sendMessage(Messages.getZoneSavingError(ce));
+        }
+        if (enable) {
+            zone
+                    .getWorld()
+                    .ifPresent(world -> zone
+                            .getRegion()
+                            .getEntities(world)
+                            .stream()
+                            .filter(entity -> entity instanceof Player)
+                            .map(entity -> (Player) entity)
+                            .filter(player -> preventPlayersFlag.hasPermission(zone,
+                                    player.uniqueId()))
+                            .forEach(entity -> PreventPlayersListener.getOutsidePosition(zone,
+                                    entity)));
         }
         return CommandResult.success();
     }

@@ -1,6 +1,9 @@
 package org.zone.region.bounds;
 
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.entity.Entity;
+import org.spongepowered.api.util.AABB;
+import org.spongepowered.api.world.World;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.math.vector.Vector3d;
@@ -62,6 +65,11 @@ public class BoundedRegion implements Region {
             return false;
         }
         return min.z() <= vector3d.z() && max.z() >= vector3d.z();
+    }
+
+    @Override
+    public Collection<? extends Entity> getEntities(World world) {
+        return world.entities(AABB.of(this.position1, this.position2));
     }
 
     @Override

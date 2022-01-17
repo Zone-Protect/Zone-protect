@@ -1,20 +1,20 @@
 package org.zone.region.flag;
 
 import org.jetbrains.annotations.NotNull;
+import org.zone.region.flag.entity.monster.move.PreventMonsterFlagType;
 import org.zone.region.flag.entity.player.damage.attack.EntityDamagePlayerFlagType;
+import org.zone.region.flag.entity.player.damage.fall.PlayerFallDamageFlagType;
 import org.zone.region.flag.entity.player.interact.block.destroy.BlockBreakFlagType;
 import org.zone.region.flag.entity.player.interact.block.place.BlockPlaceFlagType;
 import org.zone.region.flag.entity.player.interact.door.DoorInteractionFlagType;
 import org.zone.region.flag.entity.player.interact.itemframe.ItemFrameInteractFlagType;
+import org.zone.region.flag.entity.player.move.greetings.GreetingsFlagType;
+import org.zone.region.flag.entity.player.move.leaving.LeavingFlagType;
+import org.zone.region.flag.entity.player.move.preventing.PreventPlayersFlagType;
 import org.zone.region.flag.meta.eco.EcoFlagType;
 import org.zone.region.flag.meta.edit.EditingFlagType;
 import org.zone.region.flag.meta.member.MembersFlagType;
 import org.zone.region.flag.meta.tag.TagsFlagType;
-import org.zone.region.flag.entity.monster.move.PreventMonsterFlagType;
-import org.zone.region.flag.entity.player.move.greetings.GreetingsFlagType;
-import org.zone.region.flag.entity.player.move.leaving.LeavingFlagType;
-import org.zone.region.flag.entity.player.move.preventing.PreventPlayersFlagType;
-import org.zone.region.flag.entity.player.damage.fall.PlayerFallDamageFlagType;
 
 import java.util.Arrays;
 import java.util.Collection;

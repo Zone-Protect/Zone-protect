@@ -3,9 +3,7 @@ package org.zone.commands.system.arguments.operation;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.api.command.CommandCompletion;
 import org.spongepowered.api.item.ItemTypes;
-import org.spongepowered.api.item.inventory.Inventory;
 import org.spongepowered.api.item.inventory.ItemStack;
-import org.zone.commands.system.CommandArgument;
 import org.zone.commands.system.CommandArgumentResult;
 import org.zone.commands.system.GUICommandArgument;
 import org.zone.commands.system.context.CommandArgumentContext;
@@ -66,9 +64,8 @@ public class ExactArgument implements GUICommandArgument<String> {
     }
 
     @Override
-    public CommandArgumentResult<String> parse(CommandContext context,
-                                               CommandArgumentContext<String> argument) throws
-            IOException {
+    public CommandArgumentResult<String> parse(
+            CommandContext context, CommandArgumentContext<String> argument) throws IOException {
         String arg = context.getCommand()[argument.getFirstArgument()];
         if (this.anyMatch(arg)) {
             return CommandArgumentResult.from(argument, arg);
@@ -77,8 +74,8 @@ public class ExactArgument implements GUICommandArgument<String> {
     }
 
     @Override
-    public @NotNull Set<CommandCompletion> suggest(CommandContext context,
-                                                   CommandArgumentContext<String> argument) {
+    public @NotNull Set<CommandCompletion> suggest(
+            CommandContext context, CommandArgumentContext<String> argument) {
         String arg = "";
         if (context.getCommand().length > argument.getFirstArgument()) {
             arg = context.getCommand()[argument.getFirstArgument()];

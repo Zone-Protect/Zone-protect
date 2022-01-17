@@ -18,8 +18,8 @@ import java.util.Optional;
 public class MonsterPreventionListener {
 
     @Listener
-    public void onMonsterMoveForMonsterPrevention(MoveEntityEvent event,
-                                                  @Getter("entity") Monster monster) {
+    public void onMonsterMoveForMonsterPrevention(
+            MoveEntityEvent event, @Getter("entity") Monster monster) {
         if (event.originalPosition().toInt().equals(event.destinationPosition().toInt())) {
             return;
         }
@@ -43,16 +43,15 @@ public class MonsterPreventionListener {
         boolean contains = event
                 .entities()
                 .stream()
-                .filter(entity ->
-                                entity instanceof Monster)
+                .filter(entity -> entity instanceof Monster)
                 .anyMatch(entity -> {
-                 Optional<Zone> opZone = ZonePlugin
-                    .getZonesPlugin()
-                    .getZoneManager()
-                    .getPriorityZone(entity.world(), entity.position());
-                 return opZone.isPresent();
-        });
-        if(contains){
+                    Optional<Zone> opZone = ZonePlugin
+                            .getZonesPlugin()
+                            .getZoneManager()
+                            .getPriorityZone(entity.world(), entity.position());
+                    return opZone.isPresent();
+                });
+        if (contains) {
             event.setCancelled(true);
         }
     }

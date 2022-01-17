@@ -35,7 +35,7 @@ public interface CommandLauncher extends BaseCommandLauncher {
                         .map(e -> e.argument().getUsage())
                         .collect(Collectors.toSet())
                         .forEach(e -> source.sendMessage(Identity.nil(),
-                                                         Messages.getFormattedErrorMessage(e)));
+                                Messages.getFormattedErrorMessage(e)));
             } else {
                 source.sendMessage(Identity.nil(), Messages.getUnknownError());
             }
@@ -49,8 +49,8 @@ public interface CommandLauncher extends BaseCommandLauncher {
     }
 
     @Override
-    default @NotNull List<CommandCompletion> tab(@NotNull CommandCause source,
-                                                 @NotNull String... args) {
+    default @NotNull List<CommandCompletion> tab(
+            @NotNull CommandCause source, @NotNull String... args) {
         CommandContext commandContext = new CommandContext(source, this.getCommands(), args);
         Set<ArgumentCommand> commands = commandContext.getPotentialCommands();
         TreeSet<CommandCompletion> tab = new TreeSet<>(Comparator.comparing(CommandCompletion::completion));

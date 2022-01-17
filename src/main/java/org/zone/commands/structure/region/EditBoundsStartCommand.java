@@ -29,18 +29,18 @@ import java.util.Optional;
 public class EditBoundsStartCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zoneId",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                     ZonePermissions.OVERRIDE_REGION_EDIT_BOUNDS_EXACT));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_REGION_EDIT_BOUNDS_EXACT));
     public static final EnumArgument<PositionType> SIDE = new EnumArgument<>("side",
-                                                                             PositionType.class);
+            PositionType.class);
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("region"),
-                             new ExactArgument("edit"),
-                             ZONE,
-                             new ExactArgument("Bounds"),
-                             new ExactArgument("start"));
+                new ExactArgument("edit"),
+                ZONE,
+                new ExactArgument("Bounds"),
+                new ExactArgument("start"));
     }
 
     @Override
@@ -54,8 +54,8 @@ public class EditBoundsStartCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         Zone zone = commandContext.getArgument(this, ZONE);
         PositionType positionType = commandContext.getArgument(this, SIDE);
         if (zone.getFlag(FlagTypes.EDITING).isPresent()) {
@@ -78,10 +78,10 @@ public class EditBoundsStartCommand implements ArgumentCommand {
         }
 
         Flag flag = new EditingFlag(opRegion.get(),
-                                    positionType,
-                                    player.blockPosition(),
-                                    BoundModes.BLOCK,
-                                    player.uniqueId());
+                positionType,
+                player.blockPosition(),
+                BoundModes.BLOCK,
+                player.uniqueId());
         zone.addFlag(flag);
         return CommandResult.success();
     }

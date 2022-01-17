@@ -22,8 +22,7 @@ import java.util.Optional;
 public class LeaveZoneCommand implements ArgumentCommand {
 
     public static final ZoneArgument ZONE = new ZoneArgument("zone",
-                                                             new ZoneArgument.ZoneArgumentPropertiesBuilder().setLimitedToOnlyPartOf(
-                                                                     true));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setLimitedToOnlyPartOf(true));
 
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
@@ -41,8 +40,8 @@ public class LeaveZoneCommand implements ArgumentCommand {
     }
 
     @Override
-    public @NotNull CommandResult run(@NotNull CommandContext commandContext,
-                                      @NotNull String... args) {
+    public @NotNull CommandResult run(
+            @NotNull CommandContext commandContext, @NotNull String... args) {
         if (!(commandContext.getSource() instanceof Player player)) {
             return CommandResult.error(Messages.getPlayerOnlyMessage());
         }

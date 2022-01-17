@@ -62,7 +62,7 @@ public class EcoFlagType implements FlagType<EcoFlag> {
                 })
                 .filter(entry -> entry.getValue() < 0)
                 .collect(Collectors.toMap(AbstractMap.SimpleImmutableEntry::getKey,
-                                          AbstractMap.SimpleImmutableEntry::getValue));
+                        AbstractMap.SimpleImmutableEntry::getValue));
         return new EcoFlag(map);
     }
 

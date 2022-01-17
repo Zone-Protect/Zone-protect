@@ -4,16 +4,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zone.permissions.ZonePermissions;
 
-public class Permissions {
+public class PermissionsTest {
 
     @Test
     public void testNoUpper() {
         for (ZonePermissions permission : ZonePermissions.values()) {
             String permissionNode = permission.getPermission();
             for (int i = 0; i < permissionNode.length(); i++) {
-                if (Character.isUpperCase(permissionNode.charAt(i))) {
-                    Assertions.fail("Node found upper character in " + permission.name());
-                }
+                Assertions.assertFalse(Character.isUpperCase(permissionNode.charAt(i)),
+                        "Node found upper character in " + permission.name());
             }
         }
     }
@@ -25,12 +24,10 @@ public class Permissions {
                 if (permission == compare) {
                     continue;
                 }
-                if (permission.getPermission().equals(compare.getPermission())) {
-                    Assertions.fail("Found duped node in both " +
-                                            permission.name() +
-                                            " and " +
-                                            compare.name());
-                }
+                Assertions.assertNotEquals(permission.getPermission(),
+                        compare.getPermission(),
+                        "Found duped node in both " + permission.name() + " and " + compare.name());
+
             }
         }
     }

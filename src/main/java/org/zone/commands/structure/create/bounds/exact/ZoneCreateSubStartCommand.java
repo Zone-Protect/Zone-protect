@@ -34,9 +34,9 @@ import java.util.Optional;
  */
 public class ZoneCreateSubStartCommand extends AbstractCreateZoneStartCommand {
 
-    private static final ZoneArgument ZONE = new ZoneArgument("zone",
-                                                              new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                      ZonePermissions.OVERRIDE_REGION_CREATE_SUB_BOUNDS_EXACT));
+    private static final ZoneArgument ZONE = new ZoneArgument("zoneId",
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_REGION_CREATE_SUB_BOUNDS_EXACT));
 
     private static final RemainingArgument<String> NAME = new RemainingArgument<>(new StringArgument(
             "name"));
@@ -44,12 +44,12 @@ public class ZoneCreateSubStartCommand extends AbstractCreateZoneStartCommand {
     @Override
     public @NotNull List<CommandArgument<?>> getArguments() {
         return Arrays.asList(new ExactArgument("create"),
-                             new ExactArgument("bounds"),
-                             new ExactArgument("block"),
-                             new ExactArgument("sub"),
-                             new ExactArgument("region"),
-                             ZONE,
-                             NAME);
+                new ExactArgument("sub"),
+                new ExactArgument("bounds"),
+                new ExactArgument("exact"),
+                new ExactArgument("zone"),
+                ZONE,
+                NAME);
     }
 
     @Override
@@ -73,10 +73,8 @@ public class ZoneCreateSubStartCommand extends AbstractCreateZoneStartCommand {
     }
 
     @Override
-    protected ZoneBuilder updateBuilder(CommandContext context,
-                                        String name,
-                                        BoundedRegion bounded,
-                                        ZoneBuilder builder) {
+    protected ZoneBuilder updateBuilder(
+            CommandContext context, String name, BoundedRegion bounded, ZoneBuilder builder) {
         return builder.setParent(context.getArgument(this, ZONE));
     }
 
@@ -90,7 +88,7 @@ public class ZoneCreateSubStartCommand extends AbstractCreateZoneStartCommand {
         String name = String.join(" ", context.getArgument(this, NAME));
 
         BoundedRegion region = new BoundedRegion(player.blockPosition().add(0, -1, 0),
-                                                 player.blockPosition());
+                player.blockPosition());
 
         ChildRegion childRegion = new ChildRegion(Collections.singleton(region));
 

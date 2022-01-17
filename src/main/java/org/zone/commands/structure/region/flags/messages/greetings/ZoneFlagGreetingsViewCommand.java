@@ -23,8 +23,8 @@ public class ZoneFlagGreetingsViewCommand implements ArgumentCommand {
     public static final ExactArgument REGION = new ExactArgument("region");
     public static final ExactArgument FLAGS = new ExactArgument("flag");
     public static final ZoneArgument ZONE_VALUE = new ZoneArgument("zone_value",
-                                                                   new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
-                                                                           ZonePermissions.OVERRIDE_FLAG_GREETINGS_VIEW));
+            new ZoneArgument.ZoneArgumentPropertiesBuilder().setBypassSuggestionPermission(
+                    ZonePermissions.OVERRIDE_FLAG_GREETINGS_VIEW));
     public static final ExactArgument GREETINGS = new ExactArgument("greetings");
     public static final ExactArgument VIEW = new ExactArgument("view");
 

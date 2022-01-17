@@ -82,8 +82,8 @@ public class DefaultFlagFile {
     public <F extends Flag, T extends FlagType<F>> Optional<F> loadDefault(T type) {
         try {
             return Optional.of(type.load(this.node.node("flags",
-                                                        type.getPlugin().metadata().id(),
-                                                        type.getKey())));
+                    type.getPlugin().metadata().id(),
+                    type.getKey())));
         } catch (IOException e) {
             return type.createCopyOfDefaultFlag();
         } catch (Throwable e) {
