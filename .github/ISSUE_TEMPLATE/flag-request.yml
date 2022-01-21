@@ -1,0 +1,12 @@
+name: Flag Request
+description: Want a custom modifier for a zone?
+title: "[Feature] [Flag] "
+labels: ["feature", "flag"]
+body:
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Description of flag
+  

@@ -1,0 +1,46 @@
+name: Bug Report
+description: Anything that doesn't seem right
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: zone-version
+    validations:
+      required: true
+    attributes:
+      label: Zone-Version
+      multiple: false
+      options: ["1.0.0", "1.0.1"]
+  - type: checkboxes
+    id: sponge-version
+    validations:
+      required: true
+    attributes:
+      label: Sponge API version
+      options:
+        - label: 8.0.0
+        - label: 8.1.0
+        - label: 9.0.0
+  - type: checkboxes
+    id: sponge-impl
+    validations:
+      required: true
+    attributes:
+      label: Sponge type
+      options:
+        - label: Vanilla
+        - label: Forge
+        - label: Lantern
+  - type: textarea
+    id: description
+    validations:
+      required: true
+    attributes:
+      label: Description of bug - How you caused it
+      description: Do not post crash in this part
+  - type: textarea
+    id: crash
+    attributes:
+      label: Crash report
+      render: shell
+      

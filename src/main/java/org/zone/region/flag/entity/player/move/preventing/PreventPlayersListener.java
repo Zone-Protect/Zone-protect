@@ -1,13 +1,17 @@
 package org.zone.region.flag.entity.player.move.preventing;
 
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.api.Sponge;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.entity.living.player.server.ServerPlayer;
 import org.spongepowered.api.event.Listener;
+import org.spongepowered.api.event.Order;
 import org.spongepowered.api.event.entity.MoveEntityEvent;
 import org.spongepowered.api.event.filter.Getter;
 import org.spongepowered.api.event.network.ServerSideConnectionEvent;
+import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.util.Ticks;
 import org.spongepowered.api.world.Locatable;
 import org.spongepowered.math.vector.Vector3i;
 import org.zone.ZonePlugin;
@@ -18,10 +22,10 @@ import org.zone.region.flag.FlagTypes;
 import java.util.Optional;
 
 public class PreventPlayersListener {
-    @Listener
-    public void onPlayerMove(MoveEntityEvent event, @Getter("entity") Player player) {
+
+    @Listener(order = Order.FIRST)
+    public void onPlayerEnter(MoveEntityEvent event, @Getter("entity") Player player) {
         if (event.originalPosition().toInt().equals(event.destinationPosition().toInt())) {
-            //ignores this event if the player didn't move, but instead rotated
             return;
         }
 
@@ -37,10 +41,6 @@ public class PreventPlayersListener {
                 .getPriorityZone(event.entity().world(), event.originalPosition());
 
         if (opPreviousZone.isPresent()) {
-            /*
-             Player is already in a zone. No need to prevent from them entering unless they are
-             coming from one zone to another, that is out of scope of this tutorial
-             */
             return;
         }
 
@@ -66,7 +66,7 @@ public class PreventPlayersListener {
         event.setCancelled(true);
     }
 
-    @Listener
+    @Listener(order = Order.EARLY)
     public void onPlayerLoginEvent(ServerSideConnectionEvent.Join joinEvent) {
         ServerPlayer serverPlayer = joinEvent.player();
         Optional<Zone> opZone = ZonePlugin
@@ -85,7 +85,7 @@ public class PreventPlayersListener {
         if (!flag.get().hasPermission(opZone.get(), serverPlayer.uniqueId())) {
             return;
         }
-        Optional<Vector3i> opPos = this.getOutsidePosition(opZone.get(), serverPlayer);
+        Optional<Vector3i> opPos = getOutsidePosition(opZone.get(), serverPlayer);
         if (opPos.isPresent()) {
             serverPlayer.setPosition(opPos.get().toDouble());
             return;
@@ -113,7 +113,12 @@ public class PreventPlayersListener {
     }
 
     @Listener
-    public void onEntityMoveEvent(MoveEntityEvent event, @Getter("entity") Player player) {
+    public void onEntityStuck(MoveEntityEvent event, @Getter("entity") Player player) {
+        /*if (player instanceof Subject subject) {
+            if (ZonePermissions.BYPASS_ENTRY.hasPermission(subject)) {
+                return;
+            }
+        }*/
         Optional<Zone> opPreviousZone = ZonePlugin
                 .getZonesPlugin()
                 .getZoneManager()
@@ -150,13 +155,30 @@ public class PreventPlayersListener {
             return;
         }
 
-        Optional<Vector3i> opTpPos = this.getOutsidePosition(zone, player);
+        Optional<Vector3i> opTpPos = getOutsidePosition(zone, player);
 
-        if (opTpPos.isPresent()) {
-            event.setDestinationPosition(opTpPos.get().toDouble());
-            return;
-        }
-        event.setDestinationPosition(player.world().properties().spawnPosition().toDouble());
+        event.setCancelled(true);
+
+        Sponge
+                .server()
+                .scheduler()
+                .submit(Task
+                        .builder()
+                        .plugin(ZonePlugin.getZonesPlugin().getPluginContainer())
+                        .execute(() -> {
+                            if (opTpPos.isPresent()) {
+                                player.setPosition(opTpPos.get().toDouble());
+                                return;
+                            }
+                            player.setPosition(player
+                                    .world()
+                                    .properties()
+                                    .spawnPosition()
+                                    .toDouble());
+                        })
+                        .delay(Ticks.of(0))
+                        .build());
+
     }
 
 }

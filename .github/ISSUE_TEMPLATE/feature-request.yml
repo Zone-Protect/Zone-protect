@@ -1,0 +1,12 @@
+name: Feature request
+description: Want a new feature that doesn't fit into any other category, try this
+labels: ["feature"]
+title: "[Feature] "
+body:
+  - type: textarea
+    id: feature
+    validations:
+      required: true
+    attributes:
+      label: feature request
+    
