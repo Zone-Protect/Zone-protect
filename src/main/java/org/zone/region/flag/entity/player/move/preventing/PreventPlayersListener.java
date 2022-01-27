@@ -93,32 +93,13 @@ public class PreventPlayersListener {
         serverPlayer.setPosition(serverPlayer.world().properties().spawnPosition().toDouble());
     }
 
-    public static Optional<Vector3i> getOutsidePosition(
-            @NotNull Zone zoneOne, @NotNull Locatable player) {
-        return zoneOne.getRegion().getTrueChildren().stream().filter(boundedRegion -> {
-            Vector3i position = boundedRegion.getMin().add(-1, 0, -1);
-            position = player.world().highestPositionAt(position);
-            final Vector3i finalPosition = position;
-            //check if in any zone
-            return ZonePlugin
-                    .getZonesPlugin()
-                    .getZoneManager()
-                    .getZones()
-                    .stream()
-                    .noneMatch(zone -> zone.inRegion(player.world(), finalPosition.toDouble()));
-        }).findAny().map(boundedRegion -> {
-            Vector3i position = boundedRegion.getMin().add(-1, 0, -1);
-            return player.world().highestPositionAt(position);
-        });
-    }
-
     @Listener
     public void onEntityStuck(MoveEntityEvent event, @Getter("entity") Player player) {
-        /*if (player instanceof Subject subject) {
+        if (player instanceof Subject subject) {
             if (ZonePermissions.BYPASS_ENTRY.hasPermission(subject)) {
                 return;
             }
-        }*/
+        }
         Optional<Zone> opPreviousZone = ZonePlugin
                 .getZonesPlugin()
                 .getZoneManager()
@@ -179,6 +160,25 @@ public class PreventPlayersListener {
                         .delay(Ticks.of(0))
                         .build());
 
+    }
+
+    public static Optional<Vector3i> getOutsidePosition(
+            @NotNull Zone zoneOne, @NotNull Locatable player) {
+        return zoneOne.getRegion().getTrueChildren().stream().filter(boundedRegion -> {
+            Vector3i position = boundedRegion.getMin().add(-1, 0, -1);
+            position = player.world().highestPositionAt(position);
+            final Vector3i finalPosition = position;
+            //check if in any zone
+            return ZonePlugin
+                    .getZonesPlugin()
+                    .getZoneManager()
+                    .getZones()
+                    .stream()
+                    .noneMatch(zone -> zone.inRegion(player.world(), finalPosition.toDouble()));
+        }).findAny().map(boundedRegion -> {
+            Vector3i position = boundedRegion.getMin().add(-1, 0, -1);
+            return player.world().highestPositionAt(position);
+        });
     }
 
 }

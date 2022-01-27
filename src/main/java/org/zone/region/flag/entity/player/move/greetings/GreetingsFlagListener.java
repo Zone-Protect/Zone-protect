@@ -12,6 +12,7 @@ import org.zone.region.flag.FlagTypes;
 import java.util.Optional;
 
 public class GreetingsFlagListener {
+
     @Listener(order = Order.POST)
     public void onPlayerMove(MoveEntityEvent event, @Getter("entity") Player player) {
         if (event.originalPosition().toInt().equals(event.destinationPosition().toInt())) {

@@ -54,10 +54,10 @@ public class ZoneFlagBlockPlaceViewCommand implements ArgumentCommand {
     public @NotNull CommandResult run(CommandContext commandContext, String... args) {
         Zone zone = commandContext.getArgument(this, ZONE);
         Optional<BlockPlaceFlag> opFlag = zone.getFlag(FlagTypes.BLOCK_PLACE);
-        Messages.getEnabledInfo(opFlag.isPresent());
+        commandContext.sendMessage(Messages.getEnabledInfo(opFlag.isPresent()));
         opFlag
                 .flatMap(flag -> zone.getMembers().getGroup(flag.getRequiredKey()))
-                .ifPresent(Messages::getGroupInfo);
+                .ifPresent(group -> commandContext.sendMessage(Messages.getGroupInfo(group)));
         return CommandResult.success();
     }
 }

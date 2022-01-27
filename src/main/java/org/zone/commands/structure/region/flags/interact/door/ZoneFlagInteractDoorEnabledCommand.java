@@ -60,9 +60,9 @@ public class ZoneFlagInteractDoorEnabledCommand implements ArgumentCommand {
         Zone zone = commandContext.getArgument(this, ZONE);
         boolean value = commandContext.getArgument(this, VALUE);
         if (value) {
-            zone.addFlag(FlagTypes.BLOCK_BREAK.createCopyOfDefault());
+            zone.addFlag(FlagTypes.DOOR_INTERACTION.createCopyOfDefault());
         } else {
-            zone.removeFlag(FlagTypes.BLOCK_BREAK);
+            zone.removeFlag(FlagTypes.DOOR_INTERACTION);
         }
         try {
             zone.save();

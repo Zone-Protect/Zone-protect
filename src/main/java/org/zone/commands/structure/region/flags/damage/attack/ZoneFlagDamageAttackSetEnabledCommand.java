@@ -37,6 +37,8 @@ public class ZoneFlagDamageAttackSetEnabledCommand implements ArgumentCommand {
                 ZONE_VALUE,
                 new ExactArgument("damage"),
                 new ExactArgument("attack"),
+                new ExactArgument("towards"),
+                new ExactArgument("player"),
                 new ExactArgument("set"),
                 ENABLED);
     }

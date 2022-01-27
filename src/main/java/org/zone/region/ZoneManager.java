@@ -73,7 +73,7 @@ public class ZoneManager {
      * @return The zone that has the provided id
      */
     public @NotNull Optional<Zone> getZone(String id) {
-        return this.getZones().parallelStream().filter(zone -> zone.getId().equals(id)).findAny();
+        return this.getZones().stream().filter(zone -> zone.getId().equals(id)).findAny();
     }
 
     /**
